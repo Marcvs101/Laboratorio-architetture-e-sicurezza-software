@@ -1,3 +1,15 @@
 # Laboratorio-architetture-e-sicurezza-software
+# Questo è un commento.. GIUSTO?
+# Se avete qualcosa da aggiungere, o se volete fare prove su come funziona la baracca, fate commit su questo file.
 
-Ramo per il dispiegamento dell'applicativo
+Logica dell'applicativo
+  Applicativo? Quale applicativo? /s
+
+Rami
+  Master: Dispiegamento dell'applicativo
+  Development: Linea principale di sviluppo dell'applicativo
+
+Sviluppatori
+  Luca Carbone
+  Francesco Pernice
+  Marco Cuoci
