@@ -1,6 +1,6 @@
 # Laboratorio-architetture-e-sicurezza-software
-#Questo non era un commentoo..
-#Se avete qualcosa da aggiungere, o se volete fare prove su come funziona la baracca, fate commit su questo file.
+Come si fanno i commenti?
+Se avete qualcosa da aggiungere, o se volete fare prove su come funziona la baracca, fate commit su questo file.
 
 Logica dell'applicativo
   Applicativo? Quale applicativo? /s
