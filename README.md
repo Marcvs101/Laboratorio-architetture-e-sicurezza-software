@@ -12,6 +12,7 @@ Logica dell'applicativo
 Rami  
 	Master: Dispiegamento dell'applicativo  
 	Development: Linea principale di sviluppo dell'applicativo
+	Test: Per il debugging suppongo
 
 Sviluppatori  
 	Luca Carbone  
