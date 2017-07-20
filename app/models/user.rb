@@ -6,4 +6,14 @@ class User < Reportable
     has_many :ads
     has_many :reviews
     has_many :responses
+
+    def self.search(target)
+        where("name LIKE ?", "%#{target}%")
+        where("lastname LIKE ?", "%#{target}%")
+        where("email LIKE ?", "%#{target}%")
+    end
+
+    def self.filterByRole(target)
+        where(role: target)
+    end
 end
