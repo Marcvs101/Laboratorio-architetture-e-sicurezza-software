@@ -1,0 +1,21 @@
+<h1>GAMESHARE.IT</h1>
+<p>Barra di ricerca<p>
+
+<%= form_tag :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+<%= end %>
+
+<p>Tabella!</p>
+<table>
+    <tr>
+        <th>Header</th>
+        <td>NonUnHeader</td>
+    </tr>
+    <tr>
+        <th>AltroHeader</th>
+        <td>AtroNonUnHeader</td>
+    </tr>
+</table>
