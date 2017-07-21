@@ -3,23 +3,6 @@
 <p>Barra di ricerca<p>
 <%= form_tag :method => "post", id: "search" do %>
     <%= text_field_tag :search, params[:search], placeholder:"Search a game" %>
-    <%= button_to "Search", "home", { action: "search" } %>
-<% end %>
-<%= button_to "Search", "home", { action: "search" } %>
-
-<!-- STAMMERDA NON FUNZIONA -->
-<% if params[:search] == nil or params[:search] == "" %>
-    <p>Vuoto</p>
-<% elsif @posts.present? %>
-    <%= @debugres %>
-    <%= render @posts %>
-<% else %>
-    <%= @debugres %>
-    <p>There are no posts containing the term(s) <%= params[:search] %>.</p>
-<% end %>
-
-<% if @debugres == nil %>
-    <p>FUNCTION DIDN'T FIRE</p>
 <% end %>
 
 <p>Tabella!</p>

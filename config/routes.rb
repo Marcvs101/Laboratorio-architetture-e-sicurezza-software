@@ -3,8 +3,6 @@ Rails.application.routes.draw do
   get 'admin/list'
   get 'game/show'
   get 'home_page/home'
-  post 'home_page/home'
-
 
   resources :users
   resources :games
