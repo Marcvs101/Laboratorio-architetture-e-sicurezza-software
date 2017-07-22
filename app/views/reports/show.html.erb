@@ -4,3 +4,9 @@
     <strong>Description:</strong>
     <%= @report.description %>
 </p>
+
+<%= link_to 'Back', reports_path %>
+
+<p>
+    <%= link_to 'Destroy Report', report_path, method: :delete, data: { confirm: 'Are you sure?' } %>
+</p>

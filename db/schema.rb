@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170720140754) do
+ActiveRecord::Schema.define(version: 20170722210931) do
 
   create_table "ads", force: :cascade do |t|
     t.text     "description"
@@ -32,11 +32,11 @@ ActiveRecord::Schema.define(version: 20170720140754) do
     t.text     "description"
     t.string   "genre"
     t.string   "pegi"
-    t.string   "year"
     t.string   "maker"
     t.integer  "user_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.date     "year"
   end
 
   add_index "games", ["user_id"], name: "index_games_on_user_id"
@@ -84,8 +84,9 @@ ActiveRecord::Schema.define(version: 20170720140754) do
     t.string   "lastname"
     t.string   "email"
     t.string   "role"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "password_digest"
   end
 
 end

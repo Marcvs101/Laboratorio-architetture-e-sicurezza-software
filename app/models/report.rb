@@ -1,5 +1,5 @@
 class Report < ActiveRecord::Base
-    attr_accessor :description
+    validates :description, presence: true, length: { minimum: 10 }
     belongs_to :user
     belongs_to :reportable
 end
