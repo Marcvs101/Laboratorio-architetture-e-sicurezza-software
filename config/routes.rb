@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  get 'review/show'
-  get 'admin/list'
-  get 'game/show'
-  get 'home_page/home'
 
   resources :users
   resources :games
@@ -10,8 +6,6 @@ Rails.application.routes.draw do
   resources :ads
   resources :responses
   resources :reports
-
-  root 'home_page#home'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
