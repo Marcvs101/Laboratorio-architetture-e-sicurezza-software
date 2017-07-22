@@ -1,10 +1,11 @@
-class User < Reportable
+class User < ActiveRecord::Base
     include ActiveModel::SecurePassword
     has_secure_password
     has_many :games
     has_many :ads
     has_many :reviews
     has_many :responses
+    has_many :reports
 
     def self.search(target)
         where("name LIKE ?", "%#{target}%")

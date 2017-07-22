@@ -1,7 +1,8 @@
-class Game < Reportable
+class Game < ActiveRecord::Base
     belongs_to :user
     has_many :reviews
     has_many :ads
+    has_many :reports
 
     def self.search(target)
         where("name LIKE ?", "%#{target}%")

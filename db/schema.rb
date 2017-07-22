@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170722210931) do
+ActiveRecord::Schema.define(version: 20170722222408) do
 
   create_table "ads", force: :cascade do |t|
     t.text     "description"
@@ -41,20 +41,23 @@ ActiveRecord::Schema.define(version: 20170722210931) do
 
   add_index "games", ["user_id"], name: "index_games_on_user_id"
 
-  create_table "reportables", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "reports", force: :cascade do |t|
     t.text     "description"
     t.integer  "reportable_id"
     t.integer  "user_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "target_user_id"
+    t.integer  "game_id"
+    t.integer  "ad_id"
+    t.integer  "review_id"
   end
 
+  add_index "reports", ["ad_id"], name: "index_reports_on_ad_id"
+  add_index "reports", ["game_id"], name: "index_reports_on_game_id"
   add_index "reports", ["reportable_id"], name: "index_reports_on_reportable_id"
+  add_index "reports", ["review_id"], name: "index_reports_on_review_id"
+  add_index "reports", ["target_user_id"], name: "index_reports_on_target_user_id"
   add_index "reports", ["user_id"], name: "index_reports_on_user_id"
 
   create_table "responses", force: :cascade do |t|

@@ -24,6 +24,6 @@ class ReportsController < ApplicationController
 
     private
         def report_params
-            params.require(:report).permit(:description, :user, :reportable)
+            params.require(:report).permit(:description, :user, :target_user, :game, :ad, :review)
         end
 end
