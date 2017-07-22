@@ -1,0 +1,23 @@
+<h1>Listing Games</h1>
+ 
+<table>
+  <tr>
+    <th>Name</th>
+  </tr>
+ 
+<% @games.each do |game| %>
+  <tr>
+    <td><%= game.name %></td>
+    <td><%= link_to "More", game_path(game) %></td>
+  </tr>
+<% end %>
+</table>
+
+<% if flash[:notice] %>
+    <%= flash[:notice] %>
+
+<% elsif flash[:warning] %>
+    <%= flash[:warning]%>
+<% end %>
+<br>
+<%= link_to 'Add new Game', new_game_path%>

@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   resources :ads
   resources :responses
   resources :reports
+  
+  root :to => redirect("/games")
 
   root :to => redirect("/games")
 
