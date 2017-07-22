@@ -1,0 +1,21 @@
+%h2 Details about #{@game.name}
+%ul
+    %li
+        Name:
+        = @game.name
+    %li
+        Genre:
+        = @game.genre
+    %li
+        Maker:
+        = @game.maker
+    %li
+        Pegi:
+        = @game.pegi
+
+%h3 Description:
+%p= @game.description
+
+= link_to 'Edit', edit_game_path(@game)
+= link_to 'Delete', game_path(@game), :method => :delete
+= link_to 'Back to list', games_path
