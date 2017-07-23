@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170722222408) do
+ActiveRecord::Schema.define(version: 20170723132432) do
 
   create_table "ads", force: :cascade do |t|
     t.text     "description"
@@ -87,9 +87,12 @@ ActiveRecord::Schema.define(version: 20170722222408) do
     t.string   "lastname"
     t.string   "email"
     t.string   "role"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.string   "password_digest"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "oauth_token"
+    t.datetime "oauth_expires_at"
   end
 
 end
