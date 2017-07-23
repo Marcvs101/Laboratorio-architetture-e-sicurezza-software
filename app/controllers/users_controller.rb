@@ -23,7 +23,12 @@ class UsersController < ApplicationController
     end
 
     private
-        def user_params
-            params.require(:user).permit(:name, :lastname, :email, :role, :password, :password_confirmation)
-        end
+    def user_params
+        params.require(:user).permit(:name, :lastname, :email, :role, :password, :password_confirmation)
+    end
+
+    private
+    def user_facebook_params
+        params.require(:user).permit(:provider, :uid, :name, :oauthtoken, :oauthexpiresat)
+    end
 end
