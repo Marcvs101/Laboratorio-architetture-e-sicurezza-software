@@ -22,13 +22,18 @@ class ReportsController < ApplicationController
             target = Review.find(params[:review_id])
         end
 
-        @report = Report.new(report_params)
-        user_id.reports << @report
-        if target
-            target.reports << @report
+        if user_id && target
+            @report = Report.new(report_params)
+            user_id.reports << @report
+            if target
+                target.reports << @report
+            end
+            @report.save
+            redirect_to @report
+        else
+            flash[:warning] = "Something went wrong"
+            redirect_to games_path
         end
-        @report.save
-        redirect_to @report
     end
 
     def destroy
