@@ -1,6 +1,10 @@
 <h1>REPORT</h1>
 
 <p>
+    <strong>From:</strong>
+    <%= link_to @from.name, user_path(@from.id), method: :get %>
+</p>
+<p>
     <strong>Description:</strong>
     <%= @report.description %>
 </p>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170723132432) do
+ActiveRecord::Schema.define(version: 20170724170816) do
 
   create_table "ads", force: :cascade do |t|
     t.text     "description"
@@ -45,9 +45,8 @@ ActiveRecord::Schema.define(version: 20170723132432) do
     t.text     "description"
     t.integer  "reportable_id"
     t.integer  "user_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.integer  "target_user_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.integer  "game_id"
     t.integer  "ad_id"
     t.integer  "review_id"
@@ -55,9 +54,7 @@ ActiveRecord::Schema.define(version: 20170723132432) do
 
   add_index "reports", ["ad_id"], name: "index_reports_on_ad_id"
   add_index "reports", ["game_id"], name: "index_reports_on_game_id"
-  add_index "reports", ["reportable_id"], name: "index_reports_on_reportable_id"
   add_index "reports", ["review_id"], name: "index_reports_on_review_id"
-  add_index "reports", ["target_user_id"], name: "index_reports_on_target_user_id"
   add_index "reports", ["user_id"], name: "index_reports_on_user_id"
 
   create_table "responses", force: :cascade do |t|
@@ -84,7 +81,6 @@ ActiveRecord::Schema.define(version: 20170723132432) do
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
-    t.string   "lastname"
     t.string   "email"
     t.string   "role"
     t.datetime "created_at",       null: false
