@@ -1,4 +1,5 @@
 class GamesController < ApplicationController
+
     def index
         @games = Game.all
     end
@@ -9,6 +10,11 @@ class GamesController < ApplicationController
     end
     
     def new
+        maker = current_user
+        if maker == nil
+            flash[:warning] = 'You must be logged in to add games'
+            redirect_to games_path
+        end
         @game = Game.new
     end
     
@@ -48,9 +54,11 @@ class GamesController < ApplicationController
             valid = false
         end
         
-        #
+        maker = current_user
+        
         if valid
             @game = Game.create!(params[:game])
+            maker.games << @game
             flash[:notice] = "#{@game.name} was added"
         end
         redirect_to games_path
@@ -58,22 +66,51 @@ class GamesController < ApplicationController
     
     def edit
         @game = Game.find params[:id]
+        user_target = current_user
+        if (user_target == nil)
+            flash[:warning] = 'You must be logged in to edit games'
+            redirect_to game_path(@game)
+        elsif (user_target.games.any? {|game| game.name == @game.name})
+            return
+        else
+            flash[:warning] = 'cant edit a game if you have not created it'
+            redirect_to game_path(@game)
+        end
     end
     
     def update
         params.require(:game)
         params.permit!
+        
         @game = Game.find params[:id]
-        @game.update_attributes!(params[:game])
-        flash[:notice] = "#{@game.name} was successfully updated"
-        redirect_to game_path(@game)
+        user_target = current_user
+        if (user_target == nil)
+            flash[:warning] = 'You must be logged in to edit games'
+            redirect_to game_path(@game)
+        elsif (user_target.games.any? {|game| game.name == @game.name})
+            @game.update_attributes!(params[:game])
+            flash[:notice] = "#{@game.name} was successfully updated"
+            redirect_to game_path(@game)
+        else
+            flash[:warning] = 'cant edit a game if you have not created it'
+            redirect_to game_path(@game)
+        end
     end
     
     def destroy
         @game = Game.find(params[:id])
-        @game.destroy
-        flash[:notice] = "Game '#{@game.name}' removed"
-        redirect_to games_path
+        user_target = current_user
+        if (user_target == nil)
+            flash[:warning] = 'You must be logged in to remove games'
+            redirect_to game_path(@game)
+        elsif (user_target.games.any? {|game| game.name == @game.name})
+            @game.destroy
+            flash[:notice] = "Game '#{@game.name}' removed"
+            redirect_to games_path
+        else
+            flash[:warning] = 'cant remove a game if you have not created it'
+            redirect_to game_path(@game)
+        end
     end
         
 end
