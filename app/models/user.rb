@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
-    has_many :games
-    has_many :ads
     has_many :reviews
+    has_many :games, :through => :reviews
+    has_many :ads
     has_many :responses
     has_many :reports
 

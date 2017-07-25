@@ -70,7 +70,7 @@ class GamesController < ApplicationController
         if (user_target == nil)
             flash[:warning] = 'You must be logged in to edit games'
             redirect_to game_path(@game)
-        elsif (user_target.games.any? {|game| game.name == @game.name})
+        elsif (user_target.games.any? {|game| game.name == @game.name} || user_target.role == 'Admin')
             return
         else
             flash[:warning] = 'cant edit a game if you have not created it'
@@ -84,17 +84,9 @@ class GamesController < ApplicationController
         
         @game = Game.find params[:id]
         user_target = current_user
-        if (user_target == nil)
-            flash[:warning] = 'You must be logged in to edit games'
-            redirect_to game_path(@game)
-        elsif (user_target.games.any? {|game| game.name == @game.name})
-            @game.update_attributes!(params[:game])
-            flash[:notice] = "#{@game.name} was successfully updated"
-            redirect_to game_path(@game)
-        else
-            flash[:warning] = 'cant edit a game if you have not created it'
-            redirect_to game_path(@game)
-        end
+        @game.update_attributes!(params[:game])
+        flash[:notice] = "#{@game.name} was successfully updated"
+        redirect_to game_path(@game)
     end
     
     def destroy
@@ -103,7 +95,7 @@ class GamesController < ApplicationController
         if (user_target == nil)
             flash[:warning] = 'You must be logged in to remove games'
             redirect_to game_path(@game)
-        elsif (user_target.games.any? {|game| game.name == @game.name})
+        elsif (user_target.games.any? {|game| game.name == @game.name} || user_target.role == 'Admin')
             @game.destroy
             flash[:notice] = "Game '#{@game.name}' removed"
             redirect_to games_path
