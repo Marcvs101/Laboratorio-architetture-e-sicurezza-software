@@ -1,6 +1,6 @@
 class Game < ActiveRecord::Base
     belongs_to :user
-    has_many :reviews
+    has_many :reviews, :dependent => :destroy
     has_many :ads
     has_many :reports
 

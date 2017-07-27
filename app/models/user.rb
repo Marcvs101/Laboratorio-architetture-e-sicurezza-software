@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
-    has_many :reviews
-    has_many :games, :through => :reviews
+    has_many :reviews, :dependent => :destroy
+    has_many :games, :dependent => :destroy
     has_many :ads
     has_many :responses
     has_many :reports

@@ -3,13 +3,13 @@ class ReviewsController < ApplicationController
         @game = Game.find(params[:game_id])
         @reviews = @game.reviews
         
-        #avarage_rating method
         sum = 0
         tot = 0
         @reviews.each do |review|
             sum = sum+review.rating
             tot = tot+1
         end
+        
         if (tot == 0)
             @avarage = 0
         else
