@@ -1,0 +1,23 @@
+<h1>@user.name mette a disposizione @game.name</h1>
+
+<%= form_for :ad, url: ads_path do |f| %>
+    <p>	
+	Tipologia
+	<%= f.label :type%>
+	Disponibile nella seguente area
+        <%= f.label :location %><br>
+	Modalità di consegna
+        <%= f.label :delivery %>
+	Annotazioni
+	<%= f.label :description %>
+    </p>
+
+<% end %>
+
+<%= link_to 'Sono interessato', response_path, method: create, : %>
+
+<%= link_to 'Non sono interessato', ads_path %>
+
+<%= link_to 'Elimina annuncio', ad_path, method: delete, data: { confirm: 'Are you sure?' } %>
+
+<%= link_to 'Segnala annuncio', report_path %>
