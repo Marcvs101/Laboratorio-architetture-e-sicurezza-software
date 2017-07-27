@@ -37,7 +37,7 @@ class AdController < ApplicationController
             redirect_to ads_path
         else
             flash[:warning] = 'cant remove a game if you have not created it'
-            redirect_to ads_path
+            redirect_to game_path(@game)
         end
     end
 
