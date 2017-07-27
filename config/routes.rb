@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     resources :users
     resources :games do
         resources :reviews
-	resources :ads
+        resources :ads
     end
     resources :responses
     resources :reports
