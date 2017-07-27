@@ -30,3 +30,12 @@
 <% end %>
 <br>
 <%= link_to 'Add new Game', new_game_path%>
+
+<% if (current_user && current_user.role == "Admin") %>
+<hr>
+<strong>Administration Panel</strong>
+<p>
+<%= link_to 'Show user list', users_path%><br>
+<%= link_to 'Show report list', reports_path%>
+</p>
+<% end %>

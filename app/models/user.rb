@@ -12,10 +12,13 @@ class User < ActiveRecord::Base
             user.name = auth.info.name
             user.oauth_token = auth.credentials.token
             user.oauth_expires_at = Time.at(auth.credentials.expires_at)
+            if (user.email == nil)
+                user.email = auth.info.email
+            end
             if (user.role == nil)
                 user.role = "Active"
             end
-            if (User.all.length < 2 || where(role: "Admin").length < 1)
+            if ((User.all.length - where(role: "Banned").length < 2 || where(role: "Admin").length < 1) && user.role == "Active")
                 user.role = "Admin"
             end
             user.save!

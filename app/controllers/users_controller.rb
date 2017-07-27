@@ -1,10 +1,20 @@
 class UsersController < ApplicationController
     def index
         @users = User.all
+        user_actual = current_user
+        if (user_actual == nil || user_actual.role != "Admin")
+            flash[:warning] = "How did you even get here?"
+            redirect_to games_path
+        end
     end
 
     def show
-        @user = User.find(params[:id])
+        if (current_user && current_user.role == "Admin")
+            @user = User.find(params[:id])
+        else
+            flash[:warning] = "How did you even get here?"
+            redirect_to games_path
+        end
     end
 
     def new
@@ -13,7 +23,7 @@ class UsersController < ApplicationController
     def edit
         @user = User.find(params[:id])
         user_actual = current_user
-        if (user_actual == nil)
+        if (user_actual == nil || user_actual.role != "Admin")
             flash[:warning] = "How did you even get here?"
             redirect_to games_path
         end
@@ -22,7 +32,7 @@ class UsersController < ApplicationController
     def update
         @user = User.find(params[:id])
         user_actual = current_user
-        if (user_actual == nil)
+        if (user_actual == nil || user_actual.role != "Admin")
             flash[:warning] = "How did you even get here?"
             redirect_to games_path
         else
@@ -36,8 +46,14 @@ class UsersController < ApplicationController
 
     def destroy
         @user = User.find(params[:id])
-        @user.destroy
-        redirect_to users_path
+        user_actual = current_user
+        if (user_actual == nil || user_actual.role != "Admin")
+            flash[:warning] = "How did you even get here?"
+            redirect_to games_path
+        else
+            @user.destroy
+            redirect_to users_path
+        end
     end
 
     private

@@ -5,13 +5,12 @@
         <%= f.label :email %><br>
         <%= f.text_area :email %>
     </p>
-        <% if @user %>
-            <p>
-            <%= f.label :role %>
-            <br>
-            <%= f.select :role, ["Active", "Banned", "Admin"]%>
-            </p>
-        <% end %>
+
+    <p>
+        <%= f.label :role %><br>
+        <%= f.select :role, ["Active", "Banned", "Admin"]%>
+    </p>
+
     <p>
         <%= f.submit "Edit User"%>
     </p>

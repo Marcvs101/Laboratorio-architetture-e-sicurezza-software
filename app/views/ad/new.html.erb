@@ -1,0 +1,23 @@
+<h1> Creazione di un nuovo annuncio per @game.name<h1>
+
+<%= form_for :ad, url: ads_path do |f| %>
+    <p>	
+	Tipologia
+	<%= f.select :type, ["Prestito", "Vendita"]%>
+	Disponibile nella seguente area
+        <%= f.text_area :location %><br>
+	Modalità di consegna
+        <%= f.text_area :delivery %>
+	Annotazioni
+	<%= f.text_area :description %>
+    </p>
+
+    <p>
+        <%= f.submit "Create ad"%>
+	
+    </p>
+<% end %>
+
+<%=link_to "Annulla", ads_path%>
+
+

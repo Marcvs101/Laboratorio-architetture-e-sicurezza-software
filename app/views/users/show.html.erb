@@ -12,13 +12,14 @@
     <strong>Role:</strong>
     <%= @user.role %>
 </p>
+
 <p>
-    <strong>DEBUG:</strong>
-    <%= @user.inspect %>
+    <%= link_to 'Back', users_path %>
 </p>
 
-
-<%= link_to 'Back', users_path %>
+<p>
+    <%= link_to 'Edit User', edit_user_path(@user), method: :get%>
+</p>
 
 <p>
     <%= link_to 'Destroy User', user_path, method: :delete, data: { confirm: 'Are you sure?' } %>
