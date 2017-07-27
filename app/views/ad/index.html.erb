@@ -1,0 +1,15 @@
+<h1>Listing Ads</h1>
+
+<table>
+    <tr>
+        <th>Name</th>
+    </tr>
+
+    <% @ads.each do |ad| %>
+        <tr>
+            <td><%= ad.tipo %></td>
+	    <td><%= ad.luogo %></td>
+            <td><%= link_to 'Show', article %></td>
+        </tr>
+    <% end %>
+</table>
