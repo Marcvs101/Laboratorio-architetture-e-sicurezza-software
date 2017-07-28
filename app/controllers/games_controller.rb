@@ -49,8 +49,8 @@ class GamesController < ApplicationController
         #    flash[:warning] = "Year cant be blank"
         #    valid = false
 
-        elsif params[:game][:description].length == 0
-            flash[:warning] = "Description cant be blank"
+        elsif params[:game][:description].length <= 10
+            flash[:warning] = "Description must be at least 10 char long"
             valid = false
         end
 
