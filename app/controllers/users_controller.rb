@@ -1,59 +1,62 @@
 class UsersController < ApplicationController
     def index
-        @users = User.all
-        user_actual = current_user
-        if (user_actual == nil || user_actual.role != "Admin")
-            flash[:warning] = "How did you even get here?"
+        access = check_access(current_user,"Admin")
+        if !(access[:status]) #Error logic goes below
+            flash[:warning] = access[:message]
             redirect_to games_path
-        end
+            return
+        end #Normal flux below
+        @users = User.all
     end
 
     def show
-        if (current_user && current_user.role == "Admin")
-            @user = User.find(params[:id])
-        else
-            flash[:warning] = "How did you even get here?"
+        access = check_access(current_user,"Admin")
+        if !(access[:status]) #Error logic goes below
+            flash[:warning] = access[:message]
             redirect_to games_path
-        end
+            return
+        end #Normal flux below
+        @user = User.find(params[:id])
     end
 
     def new
     end
 
     def edit
-        @user = User.find(params[:id])
-        user_actual = current_user
-        if (user_actual == nil || user_actual.role != "Admin")
-            flash[:warning] = "How did you even get here?"
+        access = check_access(current_user,"Admin")
+        if !(access[:status]) #Error logic goes below
+            flash[:warning] = access[:message]
             redirect_to games_path
-        end
+            return
+        end #Normal flux below
+        @user = User.find(params[:id])
     end
 
     def update
-        @user = User.find(params[:id])
-        user_actual = current_user
-        if (user_actual == nil || user_actual.role != "Admin")
-            flash[:warning] = "How did you even get here?"
+        access = check_access(current_user,"Admin")
+        if !(access[:status]) #Error logic goes below
+            flash[:warning] = access[:message]
             redirect_to games_path
-        else
-            if (params[:user][:role] == nil)
-                params[:user][:role] = @user.role
-            end
-            @user.update_attributes!(user_params)
-            redirect_to @user
+            return
+        end #Normal flux below
+        @user = User.find(params[:id])
+        if (params[:user][:role] == nil)
+            params[:user][:role] = @user.role
         end
+        @user.update_attributes!(user_params)
+        redirect_to @user
     end
 
     def destroy
-        @user = User.find(params[:id])
-        user_actual = current_user
-        if (user_actual == nil || user_actual.role != "Admin")
-            flash[:warning] = "How did you even get here?"
+        access = check_access(current_user,"Admin")
+        if !(access[:status]) #Error logic goes below
+            flash[:warning] = access[:message]
             redirect_to games_path
-        else
-            @user.destroy
-            redirect_to users_path
-        end
+            return
+        end #Normal flux below
+        @user = User.find(params[:id])
+        @user.destroy
+        redirect_to users_path
     end
 
     private

@@ -1,32 +1,35 @@
 class ReportsController < ApplicationController
     def index
-        if (current_user == nil || current_user.role != "Admin")
-            flash[:warning] = "How did you even get here?"
+        access = check_access(current_user,"Admin")
+        if !(access[:status]) #Error logic goes below
+            flash[:warning] = access[:message]
             redirect_to games_path
-        else
-            @reports = Report.all
+            return
+        end #Normal flux below
+        @reports = Report.all
         end
     end
 
     def show
-        if (current_user && current_user.role == "Admin")
-            @report = Report.find(params[:id])
-            @from = User.find(@report.user_id)
-            @target = nil
-            @type = nil
-            if @report.game_id != nil
-                @target = Game.find(@report.game_id)
-                @type = "Game"
-            elsif @report.ad_id != nil
-                @target = Ad.find(@report.ad_id)
-                @type = "Ad"
-            elsif @report.review_id != nil
-                @target = Review.find(@report.review_id)
-                @type = "Review"
-            end
-        else
-            flash[:warning] = "How did you even get here?"
+        access = check_access(current_user,"Admin")
+        if !(access[:status]) #Error logic goes below
+            flash[:warning] = access[:message]
             redirect_to games_path
+            return
+        end #Normal flux below
+        @report = Report.find(params[:id])
+        @from = User.find(@report.user_id)
+        @target = nil
+        @type = nil
+        if @report.game_id != nil
+            @target = Game.find(@report.game_id)
+            @type = "Game"
+        elsif @report.ad_id != nil
+            @target = Ad.find(@report.ad_id)
+            @type = "Ad"
+        elsif @report.review_id != nil
+            @target = Review.find(@report.review_id)
+            @type = "Review"
         end
     end
 
@@ -35,6 +38,12 @@ class ReportsController < ApplicationController
     end
 
     def create
+        access = check_access(current_user,"Active")
+        if !(access[:status]) #Error logic goes below
+            flash[:warning] = access[:message]
+            redirect_to games_path
+            return
+        end #Normal flux below
         user_id = current_user
         target = nil
         if params[:game_target] != nil
@@ -44,34 +53,29 @@ class ReportsController < ApplicationController
         elsif params[:review_target] != nil
             target = Review.find(params[:review_target])
         end
-
-        if (current_user == nil || current_user.role != "Admin")
-            flash[:warning] = "How did you even get here?"
+        if user_id && (target != nil)
+            @report = Report.new(report_params)
+            user_id.reports << @report
+            target.reports << @report
+            @report.save
+            flash[:warning] = "Report sent succesfully"
             redirect_to games_path
         else
-            if user_id && (target != nil)
-                @report = Report.new(report_params)
-                user_id.reports << @report
-                target.reports << @report
-                @report.save
-                flash[:warning] = "Report sent succesfully"
-                redirect_to games_path
-            else
-                flash[:warning] = "Something went wrong"
-                redirect_to games_path
-            end
+            flash[:warning] = "Something went wrong"
+            redirect_to games_path
         end
     end
 
     def destroy
-        if (current_user == nil || current_user.role != "Admin")
-            flash[:warning] = "How did you even get here?"
+        access = check_access(current_user,"Admin")
+        if !(access[:status]) #Error logic goes below
+            flash[:warning] = access[:message]
             redirect_to games_path
-        else
-            @report = Report.find(params[:id])
-            @report.destroy
-            redirect_to reports_path
-        end
+            return
+        end #Normal flux below
+        @report = Report.find(params[:id])
+        @report.destroy
+        redirect_to reports_path
     end
 
     private

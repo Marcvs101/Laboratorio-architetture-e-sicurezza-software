@@ -1,5 +1,5 @@
 class Report < ActiveRecord::Base
-    validates :description, presence: true, length: { minimum: 10 }
+    validates :description, presence: true
     belongs_to :user
     belongs_to :game
     belongs_to :ad

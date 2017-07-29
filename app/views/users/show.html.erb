@@ -23,8 +23,10 @@
 
     <% @user.games.each do |game| %>
         <tr>
+            <% if game %>
             <td><%= game.name %></td>
             <td><%= link_to 'Show', game_reviews_path(game) %></td>
+            <% end %>
         </tr>
     <% end %>
 </table>
@@ -41,9 +43,11 @@
 
     <% @user.reviews.each do |review| %>
         <tr>
+            <% if review && review.game %>
             <td><%= review.game.name %></td>
             <td><%= review.rating %></td>
             <td><%= link_to 'Show', game_review_path(review.game,review) %></td>
+            <% end %>
         </tr>
     <% end %>
 </table>
