@@ -13,15 +13,12 @@ class ResponsesController < ApplicationController
         @response = Response.find(params[:id])
     end
     
-    def new
-        @ad = Ad.find(params[:ad_id])
-        @response = @ad.responses.build
-    end
-    
     def create
         @ad = Ad.find(params[:ad_id])
         maker = current_user
-        if (maker.responses.any? {|response| response.ad.id == @ad.id})
+        if (maker == nil)
+            flash[:warning] = 'You must be logget in to respond'
+        elsif (maker.responses.any? {|response| response.ad.id == @ad.id})
             flash[:warning] = 'You have already responded to that ad'
         else
             maker.responses << @ad.responses.build
