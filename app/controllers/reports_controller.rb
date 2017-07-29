@@ -1,4 +1,5 @@
 class ReportsController < ApplicationController
+
     def index
         access = check_access(current_user,"Admin")
         if !(access[:status]) #Error logic goes below

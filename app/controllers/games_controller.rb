@@ -104,5 +104,5 @@ class GamesController < ApplicationController
             redirect_to game_path(@game)
         end
     end
-
+  
 end

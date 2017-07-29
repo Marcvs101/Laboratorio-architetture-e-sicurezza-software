@@ -1,4 +1,5 @@
 class ReviewsController < ApplicationController
+
     def index
         @game = Game.find(params[:game_id])
         @reviews = @game.reviews
@@ -101,4 +102,5 @@ class ReviewsController < ApplicationController
             redirect_to game_review_path(@game,@review)
         end
     end
+
 end

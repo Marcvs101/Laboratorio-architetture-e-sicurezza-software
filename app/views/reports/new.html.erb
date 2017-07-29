@@ -1,5 +1,6 @@
 <h1>NEW REPORT</h1>
 
+
 <%= form_for :report, url: reports_path(game_target: @oldparams[:game_target], ad_target: @oldparams[:ad_target], review_target: @oldparams[:review_target]) do |f| %>
     <p>
         <%= f.label :description %><br>
