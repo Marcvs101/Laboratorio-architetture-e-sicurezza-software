@@ -16,7 +16,7 @@ class ReviewsController < ApplicationController
         end
         
         if (tot == 0)
-            @avarage = 0
+            @avarage = 'ND'
         else
             @avarage = sum/tot
         end

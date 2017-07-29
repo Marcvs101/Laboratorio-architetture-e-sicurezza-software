@@ -1,9 +1,9 @@
 class User < ActiveRecord::Base
-    has_many :reviews, :dependent => :destroy
-    has_many :games, :dependent => :destroy
-    has_many :ads
-    has_many :responses
-    has_many :reports
+    has_many :reviews
+    has_many :games
+    has_many :ads, :dependent => :destroy
+    has_many :responses, :dependent => :destroy
+    has_many :reports, :dependent => :destroy
 
     def self.from_omniauth(auth)
         where(provider: auth.provider, uid: auth.uid).first_or_initialize.tap do |user|

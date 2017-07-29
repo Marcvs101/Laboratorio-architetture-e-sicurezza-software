@@ -10,6 +10,9 @@ Rails.application.routes.draw do
         resources :reviews
         resources :ads
     end
+    resources :ads do
+        resources :responses
+    end
     resources :responses
     resources :reports
 
