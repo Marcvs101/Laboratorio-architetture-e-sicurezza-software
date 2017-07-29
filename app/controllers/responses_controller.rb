@@ -16,8 +16,11 @@ class ResponsesController < ApplicationController
     def create
         @ad = Ad.find(params[:ad_id])
         maker = current_user
-        if (maker == nil)
-            flash[:warning] = 'You must be logget in to respond'
+        access = check_access(maker,"Active")
+        if !(access[:status]) #permission check
+            flash[:warning] = access[:message]
+            redirect_to game_reviews_path(@ad.game)
+            return
         elsif (maker.responses.any? {|response| response.ad.id == @ad.id})
             flash[:warning] = 'You have already responded to that ad'
         else

@@ -8,6 +8,13 @@
 </div>
 
 <hr>
+<% if flash[:notice] %>
+    <%= flash[:notice] %>
+    <hr>
+<% elsif flash[:warning] %>
+    <%= flash[:warning]%>
+    <hr>
+<% end %>
 
 <h1>Listing Games</h1>
 
@@ -24,12 +31,6 @@
 <% end %>
 </table>
 
-<% if flash[:notice] %>
-    <%= flash[:notice] %>
-
-<% elsif flash[:warning] %>
-    <%= flash[:warning]%>
-<% end %>
 <br>
 <%= link_to 'Add new Game', new_game_path%>
 

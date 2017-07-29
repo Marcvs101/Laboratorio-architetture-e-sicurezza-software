@@ -33,9 +33,11 @@ class ReviewsController < ApplicationController
     def new
         @game = Game.find(params[:game_id])
         maker = current_user
-        if maker == nil
-            flash[:warning] = 'You must be logged in to add reviews'
+        access = check_access(maker,"Active")
+        if !(access[:status]) #permission check
+            flash[:warning] = access[:message]
             redirect_to game_reviews_path(@game)
+            return
         end
         @review = @game.reviews.build
         if ! maker.reviews.any? {|review| review.game.name == @game.name}

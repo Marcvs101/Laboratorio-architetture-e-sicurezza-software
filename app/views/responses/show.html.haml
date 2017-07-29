@@ -6,4 +6,4 @@
 %br
 %hr
 = link_to 'Back', responses_path
-= link_to 'Delete', response_path(@response), :method => :delete
+= link_to 'Delete', response_path(@response), :method => :delete, data: { confirm: 'Are you sure?' }

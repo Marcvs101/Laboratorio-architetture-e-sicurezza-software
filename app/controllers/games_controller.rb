@@ -10,10 +10,11 @@ class GamesController < ApplicationController
     end
 
     def new
-        maker = current_user
-        if maker == nil
-            flash[:warning] = 'You must be logged in to add games'
+        access = check_access(current_user,"Active")
+        if !(access[:status]) #permission check
+            flash[:warning] = access[:message]
             redirect_to games_path
+            return
         end
         @game = Game.new
     end
