@@ -5,6 +5,16 @@
     <%= link_to @from.name, user_path(@from.id), method: :get %>
 </p>
 <p>
+    <strong>Regarding:</strong>
+    <% if @type == "Game" %>
+        <%= link_to @target.name, game_path(@target.id), method: :get %>
+    <% elsif @type == "Ad" %>
+        <%= link_to @target.name, ad_path(@target.id), method: :get %>
+    <% elsif @type == "Review" %>
+        <%= link_to @target.name, review_path(@target.id), method: :get %>
+    <% end %>
+</p>
+<p>
     <strong>Description:</strong>
     <%= @report.description %>
 </p>

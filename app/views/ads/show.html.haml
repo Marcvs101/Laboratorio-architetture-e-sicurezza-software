@@ -23,5 +23,4 @@
 = link_to 'Sono interessato', ad_responses_path(@ad), :method => :post
 = link_to 'Non sono interessato', game_reviews_path(@game)
 = link_to 'Delete', game_ad_path(@game,@ad), :method => :delete
-
-= link_to 'Report', new_report_path, :ad_id => @ad.id
+= link_to 'Report', new_report_path, :ad_target => @ad.id
