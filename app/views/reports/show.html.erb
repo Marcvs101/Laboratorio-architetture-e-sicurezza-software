@@ -7,11 +7,11 @@
 <p>
     <strong>Regarding:</strong>
     <% if @type == "Game" %>
-        <%= link_to @target.name, game_path(@target.id), method: :get %>
+        <%= link_to @target.name, game_reviews_path(@target.id), method: :get %>
     <% elsif @type == "Ad" %>
-        <%= link_to @target.name, ad_path(@target.id), method: :get %>
+        <%= link_to "Ad", game_ad_path(@target.game,@target.id), method: :get %>
     <% elsif @type == "Review" %>
-        <%= link_to @target.name, review_path(@target.id), method: :get %>
+        <%= link_to "Review", game_review_path(@target.game,@target.id), method: :get %>
     <% end %>
 </p>
 <p>

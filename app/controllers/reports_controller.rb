@@ -31,25 +31,19 @@ class ReportsController < ApplicationController
     end
 
     def new
+        @oldparams = params
     end
 
     def create
         user_id = current_user
         target = nil
-        debug = "out of if"
         if params[:game_target] != nil
-            debug = "if game"
             target = Game.find(params[:game_target])
         elsif params[:ad_target] != nil
-            debug = "if ad"
             target = Ad.find(params[:ad_target])
         elsif params[:review_target] != nil
-            debug = "if review"
             target = Review.find(params[:review_target])
         end
-        debug = debug + " '" + params[:game_target].to_s + "',"
-        debug = debug + "'" + params[:ad_target].to_s + "',"
-        debug = debug + "'" + params[:review_target].to_s + "' "
 
         if (current_user == nil || current_user.role != "Admin")
             flash[:warning] = "How did you even get here?"
@@ -63,11 +57,7 @@ class ReportsController < ApplicationController
                 flash[:warning] = "Report sent succesfully"
                 redirect_to games_path
             else
-                if user_id
-                    flash[:warning] = "FUKKIN TARGET: "+debug+"//"+params.inspect
-                else
-                    flash[:warning] = "REGISTER YOU FOOL"
-                end
+                flash[:warning] = "Something went wrong"
                 redirect_to games_path
             end
         end
