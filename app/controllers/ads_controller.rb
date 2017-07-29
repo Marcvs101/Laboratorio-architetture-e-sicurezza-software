@@ -1,32 +1,33 @@
 class AdsController < ApplicationController
-	
+
 	def index
+        #occhio che gli ad devono essere listati solo per il videogioco corrente
 		@ads=Ad.all
 	end
-	
+
 	def show
-        	id = params[:id]
-        	@ad = Ad.find(id)
-            @game = Game.find(params[:game_id])
-            @person = @ad.user.name
+        id = params[:id]
+        @ad = Ad.find(id)
+        @game = Game.find(params[:game_id])
+        @person = @ad.user.name
 	end
 
-	def new  
+	def new
         @game = Game.find(params[:game_id])
         maker = current_user
-        		if maker == nil
-        			flash[:warning] = 'You must be logged in to add ads'
-        			redirect_to game_reviews_path(@game)
-        		end
+            if maker == nil
+                flash[:warning] = 'You must be logged in to add ads'
+                redirect_to game_reviews_path(@game)
+            end
         @ad = @game.ads.build
     	end
 
 	def create
         params.require(:ad)
         params.permit!
-        
+
         @game=Game.find(params[:game_id])
-        
+
         if (params[:ad][:location].length == 0)
             flash[:warning] = 'Location cant be blank'
             redirect_to game_reviews_path(@game)

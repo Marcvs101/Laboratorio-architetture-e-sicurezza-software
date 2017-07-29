@@ -11,17 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170724170816) do
+ActiveRecord::Schema.define(version: 20170729115251) do
 
   create_table "ads", force: :cascade do |t|
     t.text     "description"
-    t.string   "type"
     t.text     "location"
     t.text     "delivery"
     t.integer  "user_id"
     t.integer  "game_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.string   "tipo"
   end
 
   add_index "ads", ["game_id"], name: "index_ads_on_game_id"
