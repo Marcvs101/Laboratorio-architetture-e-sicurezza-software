@@ -11,17 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170720140754) do
+ActiveRecord::Schema.define(version: 20170729115251) do
 
   create_table "ads", force: :cascade do |t|
     t.text     "description"
-    t.string   "type"
     t.text     "location"
     t.text     "delivery"
     t.integer  "user_id"
     t.integer  "game_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.string   "tipo"
   end
 
   add_index "ads", ["game_id"], name: "index_ads_on_game_id"
@@ -32,19 +32,14 @@ ActiveRecord::Schema.define(version: 20170720140754) do
     t.text     "description"
     t.string   "genre"
     t.string   "pegi"
-    t.string   "year"
     t.string   "maker"
     t.integer  "user_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.date     "year"
   end
 
   add_index "games", ["user_id"], name: "index_games_on_user_id"
-
-  create_table "reportables", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "reports", force: :cascade do |t|
     t.text     "description"
@@ -52,9 +47,14 @@ ActiveRecord::Schema.define(version: 20170720140754) do
     t.integer  "user_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.integer  "game_id"
+    t.integer  "ad_id"
+    t.integer  "review_id"
   end
 
-  add_index "reports", ["reportable_id"], name: "index_reports_on_reportable_id"
+  add_index "reports", ["ad_id"], name: "index_reports_on_ad_id"
+  add_index "reports", ["game_id"], name: "index_reports_on_game_id"
+  add_index "reports", ["review_id"], name: "index_reports_on_review_id"
   add_index "reports", ["user_id"], name: "index_reports_on_user_id"
 
   create_table "responses", force: :cascade do |t|
@@ -81,11 +81,14 @@ ActiveRecord::Schema.define(version: 20170720140754) do
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
-    t.string   "lastname"
     t.string   "email"
     t.string   "role"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "oauth_token"
+    t.datetime "oauth_expires_at"
   end
 
 end

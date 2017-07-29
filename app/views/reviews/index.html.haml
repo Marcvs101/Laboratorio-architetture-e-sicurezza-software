@@ -1,0 +1,72 @@
+- if flash[:notice]
+    #notice.message= flash[:notice]
+
+- elsif flash[:warning]
+    #notice.warning= flash[:warning]
+
+%hr
+
+%h2 Details about #{@game.name}
+%ul
+    %li
+        Name:
+        = @game.name
+    %li
+        Genre:
+        = @game.genre
+    %li
+        Maker:
+        = @game.maker
+    %li
+        Pegi:
+        = @game.pegi
+
+%h2 Avarage Rating: #{@avarage}
+
+%h3 Description:
+%p= @game.description
+
+%hr
+
+%h2 Reviews:
+- if @reviews.length == 0
+    = 'Nessuna review. Scrivi la prima recensione: '
+- else
+    %table
+        %thead
+            %tr
+                %th User
+                %th Rating
+        %tbody
+            - @reviews.each do |review|
+                %tr
+                    %td= review.user.name
+                    %td= review.rating
+                    %td= link_to 'Read more', game_review_path(@game,review)
+= link_to 'Add review', new_game_review_path(@game)
+%br
+
+%hr
+
+%h2 Ads:
+- if @ads.length == 0
+    = 'Nessun annuncio. Scrivi il primo: '
+- else
+    %table
+        %thead
+            %tr
+                %th User
+        %tbody
+            - @ads.each do |ad|
+                %tr
+                    %td= ad.user.name
+                    %td= link_to 'See more', game_ad_path(@game,ad)
+= link_to 'Add ad', new_game_ad_path(@game)
+%br
+
+%hr
+
+= link_to 'Edit', edit_game_path(@game)
+= link_to 'Delete', game_path(@game), :method => :delete
+= link_to 'Back to list', games_path
+= link_to 'Report', new_report_path(game_target: @game.id)

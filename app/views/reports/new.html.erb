@@ -1,13 +1,11 @@
 <h1>NEW REPORT</h1>
 
-todo: prendi l'id dell'utente loggato
-todo: prendi l'id della pagina di provenienza
-<%= form_for :report, url: reports_path do |f| %>
+
+<%= form_for :report, url: reports_path(game_target: @oldparams[:game_target], ad_target: @oldparams[:ad_target], review_target: @oldparams[:review_target]) do |f| %>
     <p>
         <%= f.label :description %><br>
         <%= f.text_area :description %>
     </p>
-
     <p>
         <%= f.submit "Send Report"%>
     </p>

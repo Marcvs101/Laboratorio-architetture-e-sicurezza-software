@@ -1,0 +1,51 @@
+<div id="user-widget">
+  <% if current_user %>
+    Welcome <strong><%= current_user.name %></strong>!
+    <%= link_to "Sign out", signout_path, id: "sign_out" %>
+  <% else %>
+    <%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in" %>
+  <% end %>
+</div>
+
+<hr>
+
+<h1>Listing Games</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+  </tr>
+
+<% @games.each do |game| %>
+  <tr>
+    <td><%= game.name %></td>
+    <td><%= link_to "More", game_reviews_path(game) %></td>
+  </tr>
+<% end %>
+</table>
+
+<% if flash[:notice] %>
+    <%= flash[:notice] %>
+
+<% elsif flash[:warning] %>
+    <%= flash[:warning]%>
+<% end %>
+<br>
+<%= link_to 'Add new Game', new_game_path%>
+
+<% if (current_user) %>
+<hr>
+<strong>Responses</strong>
+<p>
+<%= link_to 'Show responses list', responses_path%><br>
+</p>
+<% end %>
+
+<% if (current_user && current_user.role == "Admin") %>
+<hr>
+<strong>Administration Panel</strong>
+<p>
+<%= link_to 'Show user list', users_path%><br>
+<%= link_to 'Show report list', reports_path%>
+</p>
+<% end %>

@@ -1,5 +1,8 @@
 class Report < ActiveRecord::Base
-    attr_accessor :description
+    validates :description, presence: true
     belongs_to :user
-    belongs_to :reportable
+    belongs_to :game
+    belongs_to :ad
+    belongs_to :target_user
+    belongs_to :review
 end
