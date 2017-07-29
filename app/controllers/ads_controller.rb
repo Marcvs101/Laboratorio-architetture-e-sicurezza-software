@@ -1,10 +1,5 @@
 class AdsController < ApplicationController
 
-	def index
-        #occhio che gli ad devono essere listati solo per il videogioco corrente
-		@ads=Ad.all
-	end
-
 	def show
         id = params[:id]
         @ad = Ad.find(id)
@@ -15,12 +10,16 @@ class AdsController < ApplicationController
 	def new
         @game = Game.find(params[:game_id])
         maker = current_user
-            if maker == nil
-                flash[:warning] = 'You must be logged in to add ads'
-                redirect_to game_reviews_path(@game)
-            end
-        @ad = @game.ads.build
+        if maker == nil
+            flash[:warning] = 'You must be logged in to add ads'
+            redirect_to game_reviews_path(@game)
+        elsif (maker.ads.any? {|ad| ad.game.id == @game.id})
+            flash[:warning] = 'You have already created an ad for this game'
+            redirect_to game_reviews_path(@game)
+        else
+            @ad = @game.ads.build
     	end
+    end
 
 	def create
         params.require(:ad)

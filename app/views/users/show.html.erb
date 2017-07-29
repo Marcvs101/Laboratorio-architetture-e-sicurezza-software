@@ -13,6 +13,60 @@
     <%= @user.role %>
 </p>
 
+<hr>
+
+<strong> List of games: </strong>
+<table>
+    <tr>
+        <th>Game name</th>
+    </tr>
+
+    <% @user.games.each do |game| %>
+        <tr>
+            <td><%= game.name %></td>
+            <td><%= link_to 'Show', game_reviews_path(game) %></td>
+        </tr>
+    <% end %>
+</table>
+
+<br>
+<hr>
+
+<strong> List of reviews: </strong>
+<table>
+    <tr>
+        <th>Game</th>
+        <th>Rating</th>
+    </tr>
+
+    <% @user.reviews.each do |review| %>
+        <tr>
+            <td><%= review.game.name %></td>
+            <td><%= review.rating %></td>
+            <td><%= link_to 'Show', game_review_path(review.game,review) %></td>
+        </tr>
+    <% end %>
+</table>
+
+<br>
+<hr>
+
+<strong> List of ads: </strong>
+<table>
+    <tr>
+        <th>For game</th>
+    </tr>
+
+    <% @user.ads.each do |ad| %>
+        <tr>
+            <td><%= ad.game.name %></td>
+            <td><%= link_to 'Show', game_ad_path(ad.game,ad) %></td>
+        </tr>
+    <% end %>
+</table>
+
+<hr>
+
 <p>
     <%= link_to 'Back', users_path %>
 </p>
