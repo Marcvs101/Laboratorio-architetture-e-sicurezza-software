@@ -27,7 +27,7 @@
     <%= form_for :search, url: games_path, method: :get do |f| %>
         <p>
             <%= f.label :parameter %><br>
-            <%= f.text_area :parameter %>
+            <%= f.text_field :parameter %>
         </p>
         <p>
             <%= f.submit "Search for Game"%>
