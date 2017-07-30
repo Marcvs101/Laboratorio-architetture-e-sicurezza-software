@@ -26,12 +26,14 @@ class User < ActiveRecord::Base
     end
 
     def self.search(target)
-        where("name LIKE ?", "%#{target}%")
-        where("lastname LIKE ?", "%#{target}%")
-        where("email LIKE ?", "%#{target}%")
-    end
-
-    def self.filterByRole(target)
-        where(role: target)
+        if target[:parameter] != ""
+            @result = User.where("name LIKE ? OR email LIKE ?", target[:parameter], target[:parameter])
+        else
+            @result = User.all
+        end
+        if target[:role] != "Any"
+            @result = @result.where("role LIKE ?", target[:role])
+        end
+        return @result
     end
 end
