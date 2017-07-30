@@ -12,11 +12,11 @@ class ApplicationController < ActionController::Base
     protected
     def check_access(user,minimum_role)
         @return = {status: false, message: "Incorrect parameters, please contact a developer."}
-        @rolemap = {nil => 1, "Banned" => 0, "Active" => 2, "Admin" => 3}
+        @rolemap = {"Guest" => 1, "Banned" => 0, "Active" => 2, "Admin" => 3}
         if user
             user_role = user.role
         else
-            user_role = nil
+            user_role = "Guest"
         end
         if !(minimum_role && @rolemap[user_role] && @rolemap[minimum_role])
             return @return

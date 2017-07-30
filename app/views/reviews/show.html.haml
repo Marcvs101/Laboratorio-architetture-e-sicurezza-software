@@ -8,5 +8,5 @@
 %br
 = link_to 'Back', game_reviews_path(@game)
 = link_to 'Edit', edit_game_review_path(@game,@review)
-= link_to 'Delete', game_review_path(@game,@review), :method => :delete
+= link_to 'Delete', game_review_path(@game,@review), :method => :delete, data: { confirm: 'Are you sure?' }
 = link_to 'Report', new_report_path(review_target: @review.id)

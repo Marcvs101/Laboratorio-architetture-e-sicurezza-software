@@ -8,7 +8,6 @@ class ReportsController < ApplicationController
             return
         end #Normal flux below
         @reports = Report.all
-        end
     end
 
     def show
@@ -80,7 +79,7 @@ class ReportsController < ApplicationController
     end
 
     private
-        def report_params
-            params.require(:report).permit(:description)
-        end
+    def report_params
+        params.require(:report).permit!
+    end
 end
