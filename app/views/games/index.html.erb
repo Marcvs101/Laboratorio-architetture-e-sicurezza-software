@@ -22,6 +22,20 @@
 
     <h1>Listing Games</h1>
 
+    <p>
+    <strong>Filters</strong>
+    <%= form_for :search, url: games_path, method: :get do |f| %>
+        <p>
+            <%= f.label :parameter %><br>
+            <%= f.text_area :parameter %>
+        </p>
+        <p>
+            <%= f.submit "Search for Game"%>
+        </p>
+    <% end %>
+    </p>
+    <hr>
+
     <table>
     <tr>
         <th>Name</th>

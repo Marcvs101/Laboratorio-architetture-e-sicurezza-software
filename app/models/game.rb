@@ -5,11 +5,6 @@ class Game < ActiveRecord::Base
     has_many :reports, :dependent => :destroy
 
     def self.search(target)
-        where("name LIKE ?", "%#{target}%")
-        where("description LIKE ?", "%#{target}%")
-        where("genre LIKE ?", "%#{target}%")
-        where("year LIKE ?", "%#{target}%")
-        where("maker LIKE ?", "%#{target}%")
-        where("pegi LIKE ?", "%#{target}%")
+        where("name LIKE ? OR description LIKE ? OR genre LIKE ? OR year LIKE ? OR maker LIKE ? OR pegi LIKE ?", target[:parameter], target[:parameter], target[:parameter], target[:parameter], target[:parameter], target[:parameter])
     end
 end

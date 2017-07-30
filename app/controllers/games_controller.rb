@@ -1,7 +1,12 @@
 class GamesController < ApplicationController
 
     def index
-        @games = Game.all
+        if (params[:search] && params[:search][:parameter] != "")
+            @games = Game.search(params[:search])
+        else
+            @games = Game.all
+        end
+        @games
     end
 
     def new
@@ -100,5 +105,5 @@ class GamesController < ApplicationController
             redirect_to game_path(@game)
         end
     end
-  
+
 end
