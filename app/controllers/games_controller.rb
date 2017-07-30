@@ -4,11 +4,6 @@ class GamesController < ApplicationController
         @games = Game.all
     end
 
-    def show
-        id = params[:id]
-        @game = Game.find(id)
-    end
-
     def new
         access = check_access(current_user,"Active")
         if !(access[:status]) #permission check

@@ -1,6 +1,12 @@
 class AdsController < ApplicationController
 
 	def show
+        access = check_access(current_user,"Active")
+        if !(access[:status]) #permission check
+            flash[:warning] = access[:message]
+            redirect_to games_path(@game)
+            return
+        end
         id = params[:id]
         @ad = Ad.find(id)
         @game = Game.find(params[:game_id])

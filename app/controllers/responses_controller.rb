@@ -1,6 +1,12 @@
 class ResponsesController < ApplicationController
     def index
         user_target = current_user
+        access = check_access(user_target,"Active")
+        if !(access[:status]) #permission check
+            flash[:warning] = access[:message]
+            redirect_to games_path(@game)
+            return
+        end
         @responses = []
         user_target.ads.each do |ad|
             ad.responses.each do |response|
@@ -10,6 +16,12 @@ class ResponsesController < ApplicationController
     end
     
     def show
+        access = check_access(current_user,"Active")
+        if !(access[:status]) #permission check
+            flash[:warning] = access[:message]
+            redirect_to games_path(@game)
+            return
+        end
         @response = Response.find(params[:id])
     end
     
@@ -31,6 +43,12 @@ class ResponsesController < ApplicationController
     end
     
     def destroy
+        access = check_access(current_user,"Active")
+        if !(access[:status]) #permission check
+            flash[:warning] = access[:message]
+            redirect_to games_path(@game)
+            return
+        end
         @response = Response.find(params[:id])
         @response.destroy
         flash[:notice] = 'Message deleted'

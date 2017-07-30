@@ -1,6 +1,12 @@
 class ReviewsController < ApplicationController
 
     def index
+        access = check_access(current_user,"Guest")
+        if !(access[:status]) #permission check
+            flash[:warning] = access[:message]
+            redirect_to games_path(@game)
+            return
+        end
         @game = Game.find(params[:game_id])
         @reviews = @game.reviews
         @ads = @game.ads
@@ -24,6 +30,12 @@ class ReviewsController < ApplicationController
     end
 
     def show
+        access = check_access(current_user,"Guest")
+        if !(access[:status]) #permission check
+            flash[:warning] = access[:message]
+            redirect_to games_path(@game)
+            return
+        end
         id = params[:id]
         @review = Review.find(id)
         @person = @review.user.name
