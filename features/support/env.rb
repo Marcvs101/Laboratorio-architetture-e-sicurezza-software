@@ -28,6 +28,35 @@ require 'cucumber/rails'
 #
 ActionController::Base.allow_rescue = false
 
+# Facebook stuff
+Before('@omniauth_test_success') do
+  OmniAuth.config.test_mode = true
+
+  OmniAuth.config.mock_auth[:facebook] = OmniAuth::AuthHash.new({
+    "provider"  => "facebook",
+    "uid"       => '12345',
+    "info" => {
+      "email" => "email@email.com",
+      "first_name" => "John",
+      "last_name"  => "Doe",
+      "name"       => "John Doe"
+    },
+    "credentials" => {
+      "token" => "TOKEN",
+      "expires_at" => 12345,
+      "expires" => true
+    }
+  })
+end
+
+Before('@omniauth_test_failure') do
+  OmniAuth.config.test_mode = true
+  [:default, :facebook, :twitter].each do |service|
+    OmniAuth.config.mock_auth[service] = :invalid_credentials
+  end
+end
+#End Facebook stuff
+
 # Remove/comment out the lines below if your app doesn't have a database.
 # For some databases (like MongoDB and CouchDB) you may need to use :truncation instead.
 begin

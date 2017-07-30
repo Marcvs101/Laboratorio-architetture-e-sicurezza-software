@@ -1,7 +1,9 @@
 source 'https://rubygems.org'
 
-gem 'omniauth'
-gem 'omniauth-facebook'
+group :test, :development do
+    gem 'omniauth'
+    gem 'omniauth-facebook'
+end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.1'
