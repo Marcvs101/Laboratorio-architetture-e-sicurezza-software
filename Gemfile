@@ -38,23 +38,21 @@ gem 'haml'
 # gem 'capistrano-rails', group: :development
 
 group :test, :development do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
-  gem 'cucumber-rails', :require => false
-  # database_cleaner is not required, but highly recommended
-  gem 'database_cleaner'
+    # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+    gem 'byebug'
+    gem 'cucumber-rails', :require => false
+    # database_cleaner is not required, but highly recommended
+    gem 'database_cleaner'
+    gem 'rspec-rails'
+    gem 'guard-rspec'
+    gem "factory_girl_rails", "~> 4.0"
 end
 
 group :development do
-  # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 2.0'
+    # Access an IRB console on exception pages or by using <%= console %> in views
+    gem 'web-console', '~> 2.0'
 
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-end
-
-group :test do
-    gem 'rspec-rails'
-    gem 'guard-rspec'
+    # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+    gem 'spring'
 end
 

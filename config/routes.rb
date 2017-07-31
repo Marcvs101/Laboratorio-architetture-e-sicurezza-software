@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :widgets
+  resources :widgets
   #roba per facebook
     match 'auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
     match 'auth/failure', to: redirect('/'), via: [:get, :post]
