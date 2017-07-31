@@ -3,7 +3,7 @@ Feature: Manage Users
   As a unregistered visitor
   I want to sign up via Facebook
 
-@omniauth_test_success
+  @omniauth_test_success
   Scenario: Home Page
     Given I am not logged in
     And I am on the homepage
