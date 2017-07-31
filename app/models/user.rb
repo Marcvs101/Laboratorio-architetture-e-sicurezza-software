@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+    validates :name, presence: true
+    validates :role, presence: true
+    validates :email, presence: true
     has_many :reviews
     has_many :games
     has_many :ads, :dependent => :destroy
