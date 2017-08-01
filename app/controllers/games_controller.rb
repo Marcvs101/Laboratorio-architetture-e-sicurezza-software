@@ -28,6 +28,7 @@ class GamesController < ApplicationController
         if @game.save
             maker.games << @game
             flash[:notice] = "#{@game.name} was added"
+            redirect_to games_path
         else
             render 'new'
         end

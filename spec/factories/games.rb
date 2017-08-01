@@ -1,14 +1,10 @@
 FactoryGirl.define do
     factory :game do |f|
-        f.name "Cod"
-        f.description "boh non lo so"
-        f.genre "boh"
-        f.maker "boh"
+        f.name "Random"
+        f.description "Descrizione di un gioco random"
+        f.genre "Genere random"
+        f.maker "Random production"
         f.pegi '18'
-        f.year nil
-    end
-  
-    factory :invalid_game, parent: :game do |f|
-        f.name nil
+        f.year '2000-01-01'
     end
 end
