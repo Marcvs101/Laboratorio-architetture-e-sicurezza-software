@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     #roba per facebook
     devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
+    resources :users
     resources :games do
         resources :reviews
         resources :ads
