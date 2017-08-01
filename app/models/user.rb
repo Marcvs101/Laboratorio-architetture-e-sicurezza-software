@@ -10,6 +10,18 @@ class User < ActiveRecord::Base
     has_many :responses
     has_many :reports
 
+    def self.search(target)
+        if target[:parameter] != ""
+            @result = User.where("name LIKE ? OR email LIKE ?", target[:parameter], target[:parameter])
+        else
+            @result = User.all
+        end
+        if target[:role] != "Any"
+            @result = @result.where("role LIKE ?", target[:role])
+        end
+        @result
+    end
+
     def self.from_omniauth(auth)
         where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
             user.email = auth.info.email
