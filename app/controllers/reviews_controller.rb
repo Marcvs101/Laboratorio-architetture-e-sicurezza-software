@@ -66,10 +66,10 @@ class ReviewsController < ApplicationController
 
         @game = Game.find(params[:game_id])
         maker = current_user
-        if (params[:review][:description].length > 10)
+        if ! maker.reviews.any? {|review| review.game.name == @game.name}
             maker.reviews << @game.reviews.build(params[:review])
         else
-            flash[:warning] = 'Description must be at least 10 char long'
+            flash[:warning] = 'you have already reviewed this game'
         end
         redirect_to game_reviews_path(@game)
     end

@@ -4,12 +4,6 @@ class ApplicationController < ActionController::Base
     protect_from_forgery with: :exception
 
     protected
-    def current_user
-        @current_user ||= User.find(session[:user_id]) if session[:user_id]
-    end
-    helper_method :current_user
-
-    protected
     def check_access(user,minimum_role)
         @return = {status: false, message: "Incorrect parameters, please contact a developer."}
         @rolemap = {"Guest" => 1, "Banned" => 0, "Active" => 2, "Admin" => 3}
