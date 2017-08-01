@@ -40,3 +40,6 @@ RSpec.configure do |config|
     config.shared_context_metadata_behavior = :apply_to_host_groups
 
 end
+
+OmniAuth.config.test_mode = true
+OmniAuth.config.mock_auth[:twitter] = {:provider => 'facebook', :uid => '123545'}

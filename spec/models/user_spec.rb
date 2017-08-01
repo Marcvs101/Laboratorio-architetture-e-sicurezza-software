@@ -10,11 +10,7 @@ RSpec.describe User, :type => :model do
         @invalid_user.name = nil
         expect(@invalid_user.save).to eq(false)
     end
-    it "is invalid without a role" do
-        @invalid_user = FactoryGirl.build(:user)
-        @invalid_user.role = nil
-        expect(@invalid_user.save).to eq(false)
-    end
+    
     it "is invalid without an email" do
         @invalid_user = FactoryGirl.build(:user)
         @invalid_user.email = nil
