@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
     #roba per facebook
     devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+    get "/users/sign_out", to: "games#index"
 
     resources :users
     resources :games do
