@@ -46,3 +46,6 @@ RSpec.configure do |config|
     end
     config.include OmniAuthTestHelper, type: :controller
 end
+
+OmniAuth.config.test_mode = true
+OmniAuth.config.mock_auth[:twitter] = {:provider => 'facebook', :uid => '123545'}
