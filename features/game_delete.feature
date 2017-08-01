@@ -1,6 +1,6 @@
 Feature: Delete a game
   In order delete a game
-  As a non banned creator or admin 
+  As a non banned creator or admin
   I want to delete a game into the database
 
   Scenario: Deleting a game
