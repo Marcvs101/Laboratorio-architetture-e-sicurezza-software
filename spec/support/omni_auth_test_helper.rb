@@ -1,5 +1,5 @@
 module OmniAuthTestHelper
-  def valid_facebook_login_setup
+  def self.valid_facebook_login_setup()
     if Rails.env.test?
       OmniAuth.config.test_mode = true
       OmniAuth.config.mock_auth[:facebook] = OmniAuth::AuthHash.new({
@@ -20,7 +20,7 @@ module OmniAuthTestHelper
     end
   end
 
-  def facebook_login_failure
+  def self.facebook_login_failure()
     OmniAuth.config.mock_auth[:facebook] = :invalid_credentials
   end
 
