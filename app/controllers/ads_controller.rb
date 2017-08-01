@@ -32,14 +32,13 @@ class AdsController < ApplicationController
 	def create
         params.require(:ad)
         params.permit!
-
+        maker = current_user
+        
         @game=Game.find(params[:game_id])
-
-        if (params[:ad][:location].length == 0)
-            flash[:warning] = 'Location cant be blank'
+        if (maker.ads.any? {|ad| ad.game.id == @game.id})
+            flash[:warning] = 'You have already created an ad for this game'
             redirect_to game_reviews_path(@game)
         else
-            maker = current_user
             maker.ads << @game.ads.build(params[:ad])
             redirect_to game_reviews_path(@game)
         end
