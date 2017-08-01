@@ -23,4 +23,5 @@ class ApplicationController < ActionController::Base
         return @return
     end
     helper_method :check_access
+
 end
