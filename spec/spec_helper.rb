@@ -6,7 +6,7 @@ require 'rspec/autorun'
 
 RSpec.configure do |config|
     config.use_transactional_fixtures = false
-    
+
     config.before(:suite) do
         DatabaseCleaner.clean_with(:truncation)
     end
@@ -26,7 +26,7 @@ RSpec.configure do |config|
     config.after(:each) do
         DatabaseCleaner.clean
     end
-    
+
     config.expect_with :rspec do |expectations|
 
         expectations.include_chain_clauses_in_custom_matcher_descriptions = true
@@ -39,4 +39,10 @@ RSpec.configure do |config|
 
     config.shared_context_metadata_behavior = :apply_to_host_groups
 
+    #Facebook
+    before do
+        Rails.application.env_config["devise.mapping"] = Devise.mappings[:user] # If using Devise
+        Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:twitter]
+    end
+    config.include OmniAuthTestHelper, type: :controller
 end
