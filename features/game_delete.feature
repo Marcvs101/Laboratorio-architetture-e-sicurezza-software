@@ -8,7 +8,7 @@ Feature: Delete a game
     Given I am logged in
     And I am not banned
     And I am on the test game page
-    And I own the object or I am admin
+    And I own the game or I am admin
+    And I am on the test game page
     When I press "Delete"
-    And I click "Ok"
-    Then I should not see "TestGame"
+    Then I should see "Game 'TestGame' removed"

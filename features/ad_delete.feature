@@ -8,7 +8,7 @@ Feature: Delete an ad
     Given I am logged in
     And I am not banned
     And I am on the test ad page
-    And I own the object or I am admin
+    And I own the ad or I am admin
+    And I am on the test ad page
     When I press "Delete"
-    And I press "Ok"
     Then I should not see "John Doe"

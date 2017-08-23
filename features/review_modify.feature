@@ -8,9 +8,10 @@ Feature: Edit a review
     Given I am logged in
     And I am not banned
     And I am on the test review page
-    And I own the object or I am admin
+    And I own the review or I am admin
+    And I am on the test review page
     When I press "Edit"
     And I fill in "description" with "review_edited" in form "review"
-    And I click "Save changes"
+    And I click "Save Changes"
     And I press "Read more"
     Then I should see "review_edited"

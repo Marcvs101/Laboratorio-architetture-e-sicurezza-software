@@ -1,5 +1,20 @@
 Given(/^a dummy user exists$/) do
-    pending
+    @dummy = User.from_omniauth(OmniAuth::AuthHash.new({
+        "provider"  => "facebook",
+        "uid"       => '67890',
+        "info" => {
+            "email" => "email@dummy.com",
+            "first_name" => "Dummy",
+            "last_name"  => "User",
+            "name"       => "DummyUser"
+        },
+        "credentials" => {
+            "token" => "DUMMYTOKEN",
+            "expires_at" => 12345,
+            "expires" => true
+        }
+    }))
+    User.where(name: "DummyUser").length.should == 1
 end
 
 Given(/^A game named "([^"]*)" doesn't exist$/) do |arg1|
