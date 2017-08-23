@@ -1,7 +1,7 @@
 class Game < ActiveRecord::Base
     def self.all_pegi ; %w[3 7 12 16 18] ; end
 
-    validates :name, presence: true
+    validates :name, presence: true, uniqueness: true
     validates :description, presence: true
     validates :maker, presence: true
     validates :genre, presence: true

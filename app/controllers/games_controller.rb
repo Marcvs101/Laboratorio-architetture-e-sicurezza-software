@@ -43,12 +43,12 @@ class GamesController < ApplicationController
         user_target = current_user
         if (user_target == nil)
             flash[:warning] = 'You must be logged in to edit games'
-            redirect_to game_path(@game)
+            redirect_to game_reviews_path(@game)
         elsif (user_target.games.any? {|game| game.name == @game.name} || user_target.role == 'Admin')
             return
         else
             flash[:warning] = 'cant edit a game if you have not created it'
-            redirect_to game_path(@game)
+            redirect_to game_reviews_path(@game)
         end
     end
 
@@ -59,7 +59,7 @@ class GamesController < ApplicationController
         @game = Game.find params[:id]
         if @game.update_attributes(params[:game])
             flash[:notice] = "#{@game.name} was successfully updated"
-            redirect_to game_path(@game)
+            redirect_to game_reviews_path(@game)
         else
             render 'edit'
         end
@@ -70,14 +70,14 @@ class GamesController < ApplicationController
         user_target = current_user
         if (user_target == nil)
             flash[:warning] = 'You must be logged in to remove games'
-            redirect_to game_path(@game)
+            redirect_to game_reviews_path(@game)
         elsif (user_target.games.any? {|game| game.name == @game.name} || user_target.role == 'Admin')
             @game.destroy
             flash[:notice] = "Game '#{@game.name}' removed"
             redirect_to games_path
         else
             flash[:warning] = 'cant remove a game if you have not created it'
-            redirect_to game_path(@game)
+            redirect_to game_reviews_path(@game)
         end
     end
 
