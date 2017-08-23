@@ -7,10 +7,10 @@ Feature: Edit a review
   Scenario: Editing a review
     Given I am logged in
     And I am not banned
-    And I am on the review_page
+    And I am on the test review page
     And I own the object or I am admin
     When I press "Edit"
-    And I fill in "Description" with "review_edited"
-    And I press "Save changes"
-    And then I press "Read more"
-    Then I should read "review_edited"
+    And I fill in "description" with "review_edited" in form "review"
+    And I click "Save changes"
+    And I press "Read more"
+    Then I should see "review_edited"

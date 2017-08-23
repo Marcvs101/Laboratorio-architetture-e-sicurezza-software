@@ -9,7 +9,10 @@ Feature: Create a game
     And I am logged in
     And I am not banned
     And A game named "ABC" doesn't exist
-    When I press "Add a new game"
-    And I fill in "name" with "ABC"
-    And I press "Create Game"
+    When I press "Add new Game"
+    And I fill in "name" with "ABC" in form "game"
+    And I fill in "genre" with "TestGenre" in form "game"
+    And I fill in "maker" with "TestMaker" in form "game"
+    And I fill in "description" with "TestDescription" in form "game"
+    And I click "Save"
     Then I should see "ABC"

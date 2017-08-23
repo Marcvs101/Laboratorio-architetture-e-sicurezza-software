@@ -5,9 +5,9 @@ Feature: Delete an user
 
   @omniauth_test_success
   Scenario: Deleting an user
-    Given a dummy user named "DummyUser" exists
+    Given a dummy user exists
     And I am logged in
     And I am admin
     And I am on the dummy user page
     When I press "Destroy user"
-    Then I should not see "DummyUser" in Users
+    Then I should not see "DummyUser"

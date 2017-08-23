@@ -7,7 +7,7 @@ Feature: Create an ad
   Scenario: Creating an ad
     Given I am logged in
     And I am not banned
-    And I am on the game_page
+    And I am on the test game page
     When I press "Add ad"
     And I fill in "location" with "Capital City" in form "ad"
     And I fill in "description" with "description_of_ad" in form "ad"

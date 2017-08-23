@@ -7,8 +7,8 @@ Feature: Delete a game
   Scenario: Deleting a game
     Given I am logged in
     And I am not banned
-    And I am on the game_page
+    And I am on the test game page
     And I own the object or I am admin
     When I press "Delete"
-    And I press "Ok"
-    Then I should not see game
+    And I click "Ok"
+    Then I should not see "TestGame"

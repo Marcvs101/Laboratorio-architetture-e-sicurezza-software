@@ -7,11 +7,10 @@ Feature: Modify a game
   Scenario: Modifying a game
     Given I am logged in
     And I am not banned
-    And I am on the game_page
+    And I am on the test game page
     And I own the object or I am admin
     When I press "Edit"
-    And I fill in "name" with "ABC_edited"
-    And I fill in "genre" with "Sport"
-    And I fill in "year" with "2012"
-    And I press "Save changes"
+    And I fill in "name" with "ABC_edited" in form "game"
+    And I fill in "genre" with "Genre_Edited" in form "game"
+    And I click "Save changes"
     Then I should see "ABC_edited"

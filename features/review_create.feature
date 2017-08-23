@@ -7,7 +7,7 @@ Feature: Create a review
   Scenario: Reviewing a game
     Given I am logged in
     And I am not banned
-    And I am on the game_page
+    And I am on the test game page
     When I press "Add review"
     And I fill in "description" with "Very good game" in form "review"
     And I click "Create Review"

@@ -9,3 +9,11 @@ end
 When(/^I fill in "([^"]*)" with "([^"]*)" in form "([^"]*)"$/) do |arg1, arg2, arg3|
     fill_in ""+arg3+"["+arg1+"]", with: arg2
 end
+
+Then(/^I should see "([^"]*)"$/) do |arg1|
+    expect(page).to have_text(arg1)
+end
+
+Then(/^I should not see "([^"]*)"$/) do |arg1|
+    expect(page).not_to have_text(arg1)
+end

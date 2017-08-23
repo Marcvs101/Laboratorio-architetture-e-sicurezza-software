@@ -7,7 +7,7 @@ Feature: Delete a review
   Scenario: Deleting a review
     Given I am logged in
     And I am not banned
-    And I am on the review_page
+    And I am on the test review page
     And I own the object or I am admin
     When I press "Delete review"
-    Then I should not see in Review my_name
+    Then I should not see "John Doe"
