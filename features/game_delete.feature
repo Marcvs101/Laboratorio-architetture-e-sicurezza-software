@@ -4,10 +4,10 @@ Feature: Delete a game
   I want to delete a game into the database
 
   Scenario: Deleting a game
-    Given I am on the game_page
-    And I am creator
+    Given I am logged in
     And I am not banned
-    Or I am admin
+    And I am on the game_page
+    And I own the object or I am admin
     When I press "Delete"
     And I press "Ok"
     Then I should not see game

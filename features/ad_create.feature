@@ -4,9 +4,9 @@ Feature: Create an ad
   I want to add an ad to a game
 
   Scenario: Creating an ad
-    Given I am on the game_page
-    And I am logged on
+    Given I am logged on
     And I am not banned
+    And I am on the game_page
     When I press "Add ad"
     And I fill in "location" with "Capital City"
     And I fill in "description" with "description_of_ad"
