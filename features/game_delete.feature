@@ -3,6 +3,7 @@ Feature: Delete a game
   As a non banned creator or admin
   I want to delete a game into the database
 
+  @omniauth_test_success
   Scenario: Deleting a game
     Given I am logged in
     And I am not banned

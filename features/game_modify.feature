@@ -3,6 +3,7 @@ Feature: Modify a game
   As a non banned creator or admin
   I want to modify a game into the database
 
+  @omniauth_test_success
   Scenario: Modifying a game
     Given I am logged in
     And I am not banned

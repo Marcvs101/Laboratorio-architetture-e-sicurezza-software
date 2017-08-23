@@ -1,17 +1,17 @@
-Given /^I am not logged in$/ do
-    @before = User.count
-    User.where(name: "John Doe").length.should == 0
-end
-
-And /^I am on the homepage$/ do
+Given(/^I am logged in$/) do
     visit games_path
+    if (have_text("Sign in with Facebook"))
+        click_link("Sign in with Facebook")
+    end
+    expect(page).to have_text("Welcome")
 end
 
-When /^I press "([^\"]*)"$/ do |text|
-    click_link(text)
+Given(/^I am not banned$/) do
+    visit games_path
+    expect(page).to have_text("Listing Games")
 end
 
-Then /^I should be logged in$/ do
-    User.count.should == @before + 1
-    User.where(name: "John Doe").length.should == 1
+Given(/^I am admin$/) do
+    visit games_path
+    expect(page).to have_text("Administration Panel")
 end

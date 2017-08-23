@@ -3,6 +3,7 @@ Feature: Delete an ad
   As a non banned creator or admin
   I want to delete an ad from a game
 
+  @omniauth_test_success
   Scenario: Deleting an ad
     Given I am logged in
     And I am not banned

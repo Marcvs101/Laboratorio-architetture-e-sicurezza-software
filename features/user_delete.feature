@@ -3,9 +3,11 @@ Feature: Delete an user
   As an admin
   I want to remove an user from the database
 
+  @omniauth_test_success
   Scenario: Deleting an user
-    Given "user" exists
+    Given a dummy user named "DummyUser" exists
+    And I am logged in
     And I am admin
-    And I am on the user_page
+    And I am on the dummy user page
     When I press "Destroy user"
-    Then I should not see "user" in Users
+    Then I should not see "DummyUser" in Users

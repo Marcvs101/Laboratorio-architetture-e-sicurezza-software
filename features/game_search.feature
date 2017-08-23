@@ -3,6 +3,7 @@ Feature: Search for a game
   As a non banned user or visitor
   I want to submit a query for a game
 
+  @omniauth_test_success
   Scenario: Searching a game
     Given I am not banned
     And A game named "ABC" exists
