@@ -9,10 +9,6 @@ class GamesController < ApplicationController
         @games
     end
 
-    def show
-        redirect_to game_reviews_path(params[:id])
-    end
-
     def new
         access = check_access(current_user,"Active")
         if !(access[:status]) #permission check

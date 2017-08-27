@@ -7,4 +7,8 @@ FactoryGirl.define do
         f.pegi '18'
         f.year '2000-01-01'
     end
+    
+    factory :invalid_game, class: Game, parent: :game do |f|
+        f.name ""
+    end
 end

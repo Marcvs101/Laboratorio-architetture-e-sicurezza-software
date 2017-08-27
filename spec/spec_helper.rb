@@ -1,6 +1,7 @@
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
+require 'devise'
 require 'rspec/autorun'
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f } #Require everything in support folder
 
@@ -39,12 +40,7 @@ RSpec.configure do |config|
     end
 
     config.shared_context_metadata_behavior = :apply_to_host_groups
-
-    #Facebook
-    config.include OmniAuthTestHelper, type: :controller
-    config.before do
-        Rails.application.env_config["devise.mapping"] = Devise.mappings[:user] # If using Devise
-        Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:facebook]
-    end
-    #End Facebook
+    
+    config.include Devise::Test::ControllerHelpers, :type => :controller
+    config.include ControllerMacros, :type => :controller
 end
