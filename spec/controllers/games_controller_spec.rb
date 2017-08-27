@@ -91,6 +91,27 @@ RSpec.describe GamesController, type: :controller do
                 response.should redirect_to game_reviews_path(game)
             end
         end
+        
+        context 'user admin' do
+            login_admin
+            
+            before(:each) do
+                @game = FactoryGirl.create(:game)
+            end
+            
+            it "should have a current_user" do
+                expect(subject.current_user).to_not eq(nil)
+            end
+            
+            it 'should be admin' do
+                expect(subject.current_user.role).to eq('Admin')
+            end
+            
+            it "assigns @game" do
+                get :edit, id: @game
+                assigns(:game).should eq(@game)
+            end
+        end
     end
     
     describe "POST create" do
@@ -184,11 +205,72 @@ RSpec.describe GamesController, type: :controller do
                 expect(subject.current_user.games.any? {|game_tmp| game_tmp.name == @game.name}).to eq(true)
             end
             
-            it "deletes the contact" do
+            it "deletes the game" do
                 expect{delete :destroy, id: @game}.to change(Game,:count).by(-1)
             end
     
-            it "redirects to contacts#index" do
+            it "redirects to game#index" do
+                delete :destroy, id: @game
+                response.should redirect_to games_path
+            end
+        end
+        
+        context 'user logged and not game owner' do
+            login_user
+            
+            before(:each) do
+                @game = FactoryGirl.create(:game)
+            end
+            
+            it 'should have a current_user' do
+                expect(subject.current_user).to_not eq(nil)
+            end
+            
+            it "should not delete game" do
+                expect{delete :destroy, id: @game}.to_not change(Game,:count)
+            end
+            
+            it "should render to game_reviews_path" do
+                delete :destroy, id: @game
+                response.should redirect_to game_reviews_path(@game)
+            end
+        end
+        
+        context 'user not logged' do
+            before(:each) do
+                @game = FactoryGirl.create(:game)
+            end
+            
+            it "should not delete game" do
+                expect{delete :destroy, id: @game}.to_not change(Game,:count)
+            end
+            
+            it 'should render to game_reviews_path' do
+                delete :destroy, id: @game
+                response.should redirect_to game_reviews_path(@game)
+            end
+        end
+        
+        context 'user is admin' do
+            login_admin
+            
+            before(:each) do
+                @game = FactoryGirl.create(:game)
+            end
+            
+            it "should have a current_user" do
+                expect(subject.current_user).to_not eq(nil)
+            end
+            
+            it "should be admin" do
+                expect(subject.current_user.role).to eq('Admin')
+            end
+            
+            it "deletes the game" do
+                expect{delete :destroy, id: @game}.to change(Game,:count).by(-1)
+            end
+    
+            it "redirects to game#index" do
                 delete :destroy, id: @game
                 response.should redirect_to games_path
             end
