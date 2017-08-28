@@ -40,10 +40,10 @@ class GamesController < ApplicationController
         if (user_target == nil)
             flash[:warning] = 'You must be logged in to edit games'
             redirect_to game_reviews_path(@game)
-        elsif (user_target.games.any? {|game| game.name == @game.name} || user_target.role == 'Admin')
+        elsif ((user_target.role != 'Banned' && user_target.games.any? {|game| game.name == @game.name}) || user_target.role == 'Admin')
             return
         else
-            flash[:warning] = 'cant edit a game if you have not created it'
+            flash[:warning] = 'cant edit a game if you have not created it or banned'
             redirect_to game_reviews_path(@game)
         end
     end

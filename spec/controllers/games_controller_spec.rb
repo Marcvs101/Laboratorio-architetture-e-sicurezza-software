@@ -4,17 +4,15 @@ require 'rails_helper'
 RSpec.describe GamesController, type: :controller do
     
     describe "GET #index" do
-        context 'user not banned' do
-            it "populates an array of games" do
-                game = FactoryGirl.create(:game)
-                get :index
-                expect(assigns(:games)).to eq([game])
-            end
+        it "populates an array of games" do
+            game = FactoryGirl.create(:game)
+            get :index
+            expect(assigns(:games)).to eq([game])
+        end
             
-            it "renders the :index view" do
-                get :index
-                response.should render_template :index
-            end
+        it "renders the :index view" do
+            get :index
+            response.should render_template :index
         end
     end
     
@@ -32,7 +30,24 @@ RSpec.describe GamesController, type: :controller do
             end
         end
         
-        context 'user not logget' do
+        context 'user not logged' do
+            it "renders to games_path" do
+                get :new
+                response.should redirect_to games_path
+            end
+        end
+        
+        context 'user banned' do
+            login_banned
+            
+            it "should have a current_user" do
+                expect(subject.current_user).to_not eq(nil)
+            end
+            
+            it "should be banned" do
+                expect(subject.current_user.role).to eq('Banned')
+            end
+            
             it "renders to games_path" do
                 get :new
                 response.should redirect_to games_path
@@ -112,6 +127,27 @@ RSpec.describe GamesController, type: :controller do
                 assigns(:game).should eq(@game)
             end
         end
+        
+        context 'user banned' do
+            login_banned
+            
+            before(:each) do
+                @game = FactoryGirl.create(:game)
+            end
+            
+            it "should have a current_user" do
+                expect(subject.current_user).to_not eq(nil)
+            end
+            
+            it 'should be banned' do
+                expect(subject.current_user.role).to eq('Banned')
+            end
+            
+            it "renders to game_reviews_path" do
+                get :edit, id: @game
+                response.should redirect_to game_reviews_path(@game)
+            end
+        end
     end
     
     describe "POST create" do
@@ -126,7 +162,7 @@ RSpec.describe GamesController, type: :controller do
                 expect{post :create, game: FactoryGirl.attributes_for(:game)}.to change(Game,:count).by(1)
             end
     
-            it "redirects to the new contact" do
+            it "redirects to the games" do
                 post :create, game: FactoryGirl.attributes_for(:game)
                 response.should redirect_to games_path
             end
@@ -150,6 +186,7 @@ RSpec.describe GamesController, type: :controller do
         end
   
         context "valid attributes" do
+        
             it "located the requested @game" do
                 put :update, id: @game, game: FactoryGirl.attributes_for(:game)
                 assigns(:game).should eq(@game)      

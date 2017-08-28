@@ -14,4 +14,12 @@ module ControllerMacros
       sign_in user
     end
   end
+  
+  def login_banned
+    before(:each) do
+      @request.env["devise.mapping"] = Devise.mappings[:banned]
+      banned = FactoryGirl.create(:banned)
+      sign_in banned
+    end
+  end
 end
