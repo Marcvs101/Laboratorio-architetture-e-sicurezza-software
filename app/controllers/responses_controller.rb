@@ -46,7 +46,7 @@ class ResponsesController < ApplicationController
         access = check_access(current_user,"Active")
         if !(access[:status]) #permission check
             flash[:warning] = access[:message]
-            redirect_to games_path(@game)
+            redirect_to games_path
             return
         end
         @response = Response.find(params[:id])

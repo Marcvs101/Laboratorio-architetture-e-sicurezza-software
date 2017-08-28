@@ -124,6 +124,10 @@ RSpec.describe ReviewsController, type: :controller do
                 expect(subject.current_user).to_not eq(nil)
             end
             
+            it "should not be banned" do
+                expect(subject.current_user.role).to_not eq("Banned")
+            end
+            
             it "should not have reviewed the game yet" do
                 expect(subject.current_user.reviews.any? {|review| review.game.name == @game.name}).not_to eq(true)
             end
@@ -144,6 +148,10 @@ RSpec.describe ReviewsController, type: :controller do
             
             it "should have a current_user" do
                 expect(subject.current_user).to_not eq(nil)
+            end
+            
+            it "should not be banned" do
+                expect(subject.current_user.role).to_not eq("Banned")
             end
             
             it "should have reviewed the game yet" do
