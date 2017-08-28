@@ -51,12 +51,12 @@ class AdsController < ApplicationController
         if (user_target == nil)
             flash[:warning] = 'You must be logged in to remove ads'
             redirect_to game_reviews_path(@game)
-        elsif (user_target.ads.any? {|ad| ad.id == @ad.id} || user_target.role == 'Admin')
+        elsif ((user_target.ads.any? {|ad| ad.id == @ad.id} && user_target.role != 'Banned')|| user_target.role == 'Admin')
             @ad.destroy
             flash[:notice] = "Ad removed"
             redirect_to game_reviews_path(@game)
         else
-            flash[:warning] = 'cant remove an ad if you have not created it'
+            flash[:warning] = 'cant remove an ad if you have not created it or banned'
             redirect_to game_reviews_path(@game)
         end
 	end
