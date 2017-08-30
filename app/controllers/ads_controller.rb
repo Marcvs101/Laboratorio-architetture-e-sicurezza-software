@@ -59,5 +59,5 @@ class AdsController < ApplicationController
             flash[:warning] = 'cant remove an ad if you have not created it or banned'
             redirect_to game_reviews_path(@game)
         end
-	end
+    end
 end

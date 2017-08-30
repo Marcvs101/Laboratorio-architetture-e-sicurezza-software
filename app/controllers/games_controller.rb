@@ -76,5 +76,4 @@ class GamesController < ApplicationController
             redirect_to game_reviews_path(@game)
         end
     end
-
 end
