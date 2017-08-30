@@ -66,8 +66,14 @@ class ReviewsController < ApplicationController
 
         @game = Game.find(params[:game_id])
         maker = current_user
-        maker.reviews << @game.reviews.build(params[:review])
-        redirect_to game_reviews_path(@game)
+        if maker.reviews.any? {|review| review.game.name == @game.name}
+            flash[:warning] = 'you have already reviewed this game'
+            redirect_to game_reviews_path(@game)
+        else
+            @review = @game.reviews.build
+            maker.reviews << @game.reviews.build(params[:review])
+            redirect_to game_reviews_path(@game)
+        end
     end
 
     def edit
