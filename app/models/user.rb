@@ -1,37 +1,51 @@
 class User < ActiveRecord::Base
-    has_many :reviews
+    validates :name, :presence => true
+    validates :email, :presence => true
+
+    # Include default devise modules. Others available are:
+    devise :database_authenticatable, :registerable,
+           :recoverable, :rememberable, :trackable, :validatable,
+           :omniauthable, :omniauth_providers => [:facebook]
+
     has_many :games
-    has_many :ads, :dependent => :destroy
-    has_many :responses, :dependent => :destroy
-    has_many :reports, :dependent => :destroy
+    has_many :reviews
+    has_many :ads
+    has_many :responses
+    has_many :reports
+
+    def self.search(target)
+        if target[:parameter] != ""
+            @result = User.where("name LIKE ? OR email LIKE ?", target[:parameter], target[:parameter])
+        else
+            @result = User.all
+        end
+        if target[:role] != "Any"
+            @result = @result.where("role LIKE ?", target[:role])
+        end
+        @result
+    end
 
     def self.from_omniauth(auth)
-        where(provider: auth.provider, uid: auth.uid).first_or_initialize.tap do |user|
-            user.provider = auth.provider
-            user.uid = auth.uid
+        where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+            user.email = auth.info.email
             user.name = auth.info.name
-            user.oauth_token = auth.credentials.token
-            user.oauth_expires_at = Time.at(auth.credentials.expires_at)
-            if (user.email == nil)
-                user.email = auth.info.email
-            end
-            if (user.role == nil)
-                user.role = "Active"
-            end
-            if ((User.all.length - where(role: "Banned").length < 2 || where(role: "Admin").length < 1) && user.role == "Active")
+            if (user.role != "Banned")
+                if (User.where(:role == "Admin").length < 1)
                 user.role = "Admin"
+                elsif (user.role == nil || user.role == "")
+                user.role = "Active"
+                end
             end
-            user.save!
+            user.password = Devise.friendly_token[0,20]
         end
     end
 
-    def self.search(target)
-        where("name LIKE ?", "%#{target}%")
-        where("lastname LIKE ?", "%#{target}%")
-        where("email LIKE ?", "%#{target}%")
+    def self.new_with_session(params, session)
+        super.tap do |user|
+            if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
+                user.email = data["email"] if user.email.blank?
+            end
+        end
     end
 
-    def self.filterByRole(target)
-        where(role: target)
-    end
 end

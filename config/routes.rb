@@ -1,9 +1,8 @@
 Rails.application.routes.draw do
 
-  #roba per facebook
-    match 'auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
-    match 'auth/failure', to: redirect('/'), via: [:get, :post]
-    match 'signout', to: 'sessions#destroy', as: 'signout', via: [:get, :post]
+    #roba per facebook
+    devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+    get "/users/sign_out", to: "games#index"
 
     resources :users
     resources :games do

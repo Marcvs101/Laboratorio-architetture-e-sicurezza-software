@@ -6,7 +6,12 @@ class UsersController < ApplicationController
             redirect_to games_path
             return
         end #Normal flux below
-        @users = User.all
+        if (params[:search] && (params[:search][:parameter] != "" || params[:search][:role] != "Any"))
+            @users = User.search(params[:search])
+        else
+            @users = User.all
+        end
+        @users
     end
 
     def show

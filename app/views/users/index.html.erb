@@ -1,5 +1,23 @@
 <h1>Listing users</h1>
 
+<p>
+<strong>Filters</strong>
+<%= form_for :search, url: users_path, method: :get do |f| %>
+    <p>
+        <%= f.label :parameter %><br>
+        <%= f.text_field :parameter %>
+    </p>
+    <p>
+        <%= f.label :role %><br>
+        <%= f.select :role, ["Any", "Active", "Banned", "Admin"]%>
+    </p>
+    <p>
+        <%= f.submit "Search for User"%>
+    </p>
+<% end %>
+</p>
+<hr>
+
 <table>
     <tr>
         <th>Name</th>

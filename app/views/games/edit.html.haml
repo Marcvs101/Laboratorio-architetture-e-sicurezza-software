@@ -1,3 +1,9 @@
+- if @game.errors.full_messages.length > 0
+    = "Errors:"
+    - @game.errors.full_messages.each do |error|
+        %br=error
+    %hr
+
 %h2 Edit Game
 
 = form_tag game_path(@game), :method => :put do
@@ -20,6 +26,11 @@
     = label :game, :maker, 'Maker'
     %br
     = text_field :game, :maker
+    %br
+
+    = label :game, :year, 'Released on'
+    %br
+    = date_select :game, :year, :start_year => 1960
     %br
 
     = label :game, :description, 'Description'

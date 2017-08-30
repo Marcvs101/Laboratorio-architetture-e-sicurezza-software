@@ -18,6 +18,9 @@
         Maker:
         = @game.maker
     %li
+        Released on:
+        = @game.year
+    %li
         Pegi:
         = @game.pegi
 
@@ -67,6 +70,6 @@
 %hr
 
 = link_to 'Edit', edit_game_path(@game)
-= link_to 'Delete', game_path(@game), :method => :delete
+= link_to 'Delete', game_path(@game), :method => :delete, data: { confirm: 'Are you sure?' }
 = link_to 'Back to list', games_path
 = link_to 'Report', new_report_path(game_target: @game.id)

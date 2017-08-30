@@ -1,6 +1,12 @@
 class ReviewsController < ApplicationController
 
     def index
+        access = check_access(current_user,"Guest")
+        if !(access[:status]) #permission check
+            flash[:warning] = access[:message]
+            redirect_to games_path
+            return
+        end
         @game = Game.find(params[:game_id])
         @reviews = @game.reviews
         @ads = @game.ads
@@ -24,6 +30,12 @@ class ReviewsController < ApplicationController
     end
 
     def show
+        access = check_access(current_user,"Guest")
+        if !(access[:status]) #permission check
+            flash[:warning] = access[:message]
+            redirect_to games_path
+            return
+        end
         id = params[:id]
         @review = Review.find(id)
         @person = @review.user.name
@@ -33,11 +45,13 @@ class ReviewsController < ApplicationController
     def new
         @game = Game.find(params[:game_id])
         maker = current_user
-        if maker == nil
-            flash[:warning] = 'You must be logged in to add reviews'
+        access = check_access(maker,"Active")
+        if !(access[:status]) #permission check
+            flash[:warning] = access[:message]
             redirect_to game_reviews_path(@game)
+            return
         end
-        @review = @game.reviews.build
+
         if ! maker.reviews.any? {|review| review.game.name == @game.name}
             @review = @game.reviews.build
         else
@@ -52,12 +66,14 @@ class ReviewsController < ApplicationController
 
         @game = Game.find(params[:game_id])
         maker = current_user
-        if (params[:review][:description].length > 10)
-            maker.reviews << @game.reviews.build(params[:review])
+        if maker.reviews.any? {|review| review.game.name == @game.name}
+            flash[:warning] = 'you have already reviewed this game'
+            redirect_to game_reviews_path(@game)
         else
-            flash[:warning] = 'Description must be at least 10 char long'
+            @review = @game.reviews.build
+            maker.reviews << @game.reviews.build(params[:review])
+            redirect_to game_reviews_path(@game)
         end
-        redirect_to game_reviews_path(@game)
     end
 
     def edit
@@ -67,10 +83,10 @@ class ReviewsController < ApplicationController
         if (user_target == nil)
             flash[:warning] = 'You must be logged in to edit reviews'
             redirect_to game_reviews_path(@game)
-        elsif (user_target.name == @review.user.name || user_target.role == 'Admin')
+        elsif ((user_target.name == @review.user.name && user_target.role != 'Banned') || user_target.role == 'Admin')
             return
         else
-            flash[:warning] = 'cant edit a review if you have not created it'
+            flash[:warning] = 'cant edit a review if you have not created it or banned'
             redirect_to game_reviews_path(@game)
         end
     end
@@ -81,9 +97,12 @@ class ReviewsController < ApplicationController
 
         @review = Review.find params[:id]
         user_target = current_user
-        @review.update_attributes!(params[:review])
-        flash[:notice] = "review was successfully updated"
-        redirect_to game_reviews_path(params[:game_id])
+        if (@review.update_attributes(params[:review]))
+            flash[:notice] = "review was successfully updated"
+            redirect_to game_reviews_path(params[:game_id])
+        else
+            render 'edit'
+        end
     end
 
     def destroy
@@ -92,8 +111,8 @@ class ReviewsController < ApplicationController
         user_target = current_user
         if (user_target == nil)
             flash[:warning] = 'You must be logged in to remove reviews'
-            redirect_to game_reviews_path(@game)
-        elsif (user_target.name == @review.user.name || user_target.role == 'Admin')
+            redirect_to game_review_path(@game, @review)
+        elsif ((user_target.name == @review.user.name && user_target.role != 'Banned') || user_target.role == 'Admin')
             @review.destroy
             flash[:notice] = "Review removed"
             redirect_to game_reviews_path(@game)
