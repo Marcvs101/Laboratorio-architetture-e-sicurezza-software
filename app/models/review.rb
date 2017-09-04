@@ -6,4 +6,8 @@ class Review < ActiveRecord::Base
     belongs_to :user
     belongs_to :game
     has_many :reports, :dependent => :destroy
+
+    def self.search(target)
+        where("rating LIKE ? ", target[:rating])
+    end
 end
