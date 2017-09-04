@@ -35,6 +35,12 @@
 - if @reviews.length == 0
     = 'Nessuna review. Scrivi la prima recensione: '
 - else
+
+    %strong Filters
+    = form_for :search, url: game_reviews_path(@game), method: :get do |f|
+        = f.select :rating, ["Any","1","2","3","4","5"]
+        = submit_tag "Filter by rating"
+
     %table
         %thead
             %tr

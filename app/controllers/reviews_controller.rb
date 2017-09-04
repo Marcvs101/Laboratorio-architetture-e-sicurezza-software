@@ -21,7 +21,19 @@ class ReviewsController < ApplicationController
             sum = sum+review.rating
             tot = tot+1
         end
-        
+
+        if (params[:search] && params[:search][:rating] == "1")
+            @reviews = Review.search(params[:search])
+        elsif (params[:search] && params[:search][:rating] == "2")
+            @reviews = Review.search(params[:search])
+        elsif (params[:search] && params[:search][:rating] == "3")
+            @reviews = Review.search(params[:search])
+        elsif (params[:search] && params[:search][:rating] == "4")
+            @reviews = Review.search(params[:search])
+        elsif (params[:search] && params[:search][:rating] == "5")
+            @reviews = Review.search(params[:search])
+        end
+
         if (tot == 0)
             @avarage = 'ND'
         else
