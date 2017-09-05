@@ -31,6 +31,7 @@ Given(/^A game named "([^"]*)" exists$/) do |arg1|
     step 'I fill in "genre" with "TestGenre" in form "game"'
     step 'I fill in "maker" with "TestMaker" in form "game"'
     step 'I fill in "description" with "TestDescription" in form "game"'
+    step 'I attach the file at "spec/fixtures/images/game.jpg" to "Photo"'
     step 'I click "Save"'
     step 'I should see "'+arg1+'"'
 end

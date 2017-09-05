@@ -10,6 +10,10 @@ When(/^I fill in "([^"]*)" with "([^"]*)" in form "([^"]*)"$/) do |arg1, arg2, a
     fill_in ""+arg3+"["+arg1+"]", with: arg2
 end
 
+When (/^I attach the file at "([^\"]*)" to "([^\"]*)"$/) do |path, field|
+  attach_file(field, Rails.root + path)
+end
+
 Then(/^I should see "([^"]*)"$/) do |arg1|
     expect(page).to have_text(arg1)
 end

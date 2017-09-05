@@ -14,5 +14,6 @@ Feature: Create a game
     And I fill in "genre" with "TestGenre" in form "game"
     And I fill in "maker" with "TestMaker" in form "game"
     And I fill in "description" with "TestDescription" in form "game"
+    And I attach the file at "spec/fixtures/images/game.jpg" to "Photo"
     And I click "Save"
     Then I should see "ABC"

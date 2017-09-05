@@ -7,6 +7,9 @@
 %hr
 
 %h2 Details about #{@game.name}
+
+= image_tag @game.image.url(:large)
+
 %ul
     %li
         Name:
@@ -32,15 +35,19 @@
 %hr
 
 %h2 Reviews:
+%strong Filters
+= form_for :search, url: game_reviews_path(@game), method: :get do |f|
+    = f.select :rating, ["Any","1","2","3","4","5"]
+    = submit_tag "Filter by rating"
+
+Reviews with rating: #{@rating_search}
+%br
+%br
+
 - if @reviews.length == 0
-    = 'Nessuna review. Scrivi la prima recensione: '
+    = 'Nessuna review'
 - else
-
-    %strong Filters
-    = form_for :search, url: game_reviews_path(@game), method: :get do |f|
-        = f.select :rating, ["Any","1","2","3","4","5"]
-        = submit_tag "Filter by rating"
-
+    %hr
     %table
         %thead
             %tr
@@ -52,6 +59,7 @@
                     %td= review.user.name
                     %td= review.rating
                     %td= link_to 'Read more', game_review_path(@game,review)
+%br
 = link_to 'Add review', new_game_review_path(@game)
 %br
 
@@ -59,7 +67,7 @@
 
 %h2 Ads:
 - if @ads.length == 0
-    = 'Nessun annuncio. Scrivi il primo: '
+    = 'Nessun annuncio'
 - else
     %table
         %thead
@@ -70,6 +78,7 @@
                 %tr
                     %td= ad.user.name
                     %td= link_to 'See more', game_ad_path(@game,ad)
+%br
 = link_to 'Add ad', new_game_ad_path(@game)
 %br
 
