@@ -44,6 +44,7 @@
     <% @games.each do |game| %>
     <tr>
         <td><%= game.name %></td>
+        <td><%= image_tag game.image.url(:small) %></td>
         <td><%= link_to "More", game_reviews_path(game) %></td>
     </tr>
     <% end %>

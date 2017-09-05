@@ -7,6 +7,9 @@
 %hr
 
 %h2 Details about #{@game.name}
+
+= image_tag @game.image.url(:large)
+
 %ul
     %li
         Name:
@@ -38,6 +41,7 @@
     = submit_tag "Filter by rating"
 
 Reviews with rating: #{@rating_search}
+%br
 %br
 
 - if @reviews.length == 0
