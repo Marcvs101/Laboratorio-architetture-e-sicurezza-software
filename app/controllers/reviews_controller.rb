@@ -22,19 +22,7 @@ class ReviewsController < ApplicationController
             tot = tot+1
         end
 
-        if (params[:search] && params[:search][:rating] == "1")
-            @reviews = Review.search(params[:search])
-            @rating_search = params[:search][:rating]
-        elsif (params[:search] && params[:search][:rating] == "2")
-            @reviews = Review.search(params[:search])
-            @rating_search = params[:search][:rating]
-        elsif (params[:search] && params[:search][:rating] == "3")
-            @reviews = Review.search(params[:search])
-            @rating_search = params[:search][:rating]
-        elsif (params[:search] && params[:search][:rating] == "4")
-            @reviews = Review.search(params[:search])
-            @rating_search = params[:search][:rating]
-        elsif (params[:search] && params[:search][:rating] == "5")
+        if (params[:search] && params[:search][:rating] != "Any" && params[:search][:rating] != "" && params[:search][:rating] != nil)
             @reviews = Review.search(params[:search])
             @rating_search = params[:search][:rating]
         else
