@@ -3,6 +3,5 @@ class Report < ActiveRecord::Base
     belongs_to :user
     belongs_to :game
     belongs_to :ad
-    belongs_to :target_user
     belongs_to :review
 end
